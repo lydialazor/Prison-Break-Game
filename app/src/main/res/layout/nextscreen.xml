@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/prisonBackground"
+    android:gravity="center">
+
+    <!--<ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+
+        android:layout_gravity="center"/>-->
+
+
+    <TextView
+        android:id="@+id/text_view_id"
+        android:layout_width="wrap_content"
+        android:text="Choose your character"
+        android:layout_height="233.7px"
+        android:textSize="34sp"
+        />
+
+
+    <ImageView
+        android:layout_width="1433.6px"
+        android:layout_height="233.7px"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/dude1" />
+
+    <ImageView
+        android:layout_width="1433.6px"
+        android:layout_height="243.7px"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/dude2" />
+
+    <ImageView
+        android:layout_width="1433.6px"
+        android:layout_height="363.7px"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/dude3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Type your name here"
+        android:textSize="34sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFFFFF"
+        android:id="@+id/edit_text"
+
+        android:layout_marginTop="10dp"
+        android:inputType="textPersonName|textCapWords"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Easy"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#9AFFFFFF"
+        android:onClick="startGame" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#9AFFFFFF"
+        android:onClick="quitGame" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hard"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#9AFFFFFF"
+        android:onClick="quitGame" />
+
+</LinearLayout>
