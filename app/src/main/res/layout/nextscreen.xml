@@ -6,8 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@drawable/prisonBackground"
-    android:gravity="center">
+    android:background="@drawable/prisonbackground"
+    android:gravity="center"
+    tools:ignore="ExtraText">
 
     <!--<ImageView
         android:layout_width="wrap_content"
@@ -26,24 +27,33 @@
         android:textSize="34sp"
         />
 
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dude1"
+        android:scaleType="fitCenter"
+        android:state_pressed="true"
+        android:id="@+id/player1"
+        />
 
-    <ImageView
-        android:layout_width="1433.6px"
-        android:layout_height="233.7px"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/dude1" />
 
-    <ImageView
-        android:layout_width="1433.6px"
-        android:layout_height="243.7px"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/dude2" />
 
-    <ImageView
-        android:layout_width="1433.6px"
-        android:layout_height="363.7px"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/dude3" />
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dude2"
+        android:scaleType="fitCenter"
+        android:id="@+id/player2"/>
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:rotationX="-4"
+        android:src="@drawable/dude3"
+        android:scaleType="fitCenter"
+        android:id="@+id/player3" />
+
+
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,37 +62,43 @@
         android:textSize="34sp"
         android:textColor="@color/black"
         android:backgroundTint="#FFFFFF"
-        android:id="@+id/edit_text"
+        android:id="@+id/nameinput"
 
         android:layout_marginTop="10dp"
         android:inputType="textPersonName|textCapWords"/>
 
     <Button
+        android:id="@+id/submitname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Easy"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textSize="32sp"
-        android:textColor="@color/black"
         android:backgroundTint="#9AFFFFFF"
-        android:onClick="startGame" />
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="submit name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
+
+    <Spinner
+        android:id="@+id/difficulty"
+        android:layout_width="305dp"
+        android:layout_height="15dp"
+        />
+
+
+
+
+
     <Button
+        android:id="@+id/start1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textSize="32sp"
-        android:textColor="@color/black"
         android:backgroundTint="#9AFFFFFF"
-        android:onClick="quitGame" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hard"
         android:fontFamily="sans-serif-condensed-light"
-        android:textSize="32sp"
+        android:onClick="startGame"
+        android:text="Start"
         android:textColor="@color/black"
-        android:backgroundTint="#9AFFFFFF"
-        android:onClick="quitGame" />
+        android:textSize="32sp"
+        />
+
 
 </LinearLayout>
