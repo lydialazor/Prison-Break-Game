@@ -1,8 +1,7 @@
-package com.example.myapplication;
+package com.example.prison_break;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,11 +17,11 @@ public class gamescreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamescreen);
 
-        name = findViewById(R.id.nameinput);
+        //name = findViewById(R.id.nameinput);
 
-        String playername = getIntent().getStringExtra("keyname");
+        //String playername = getIntent().getStringExtra("keyname");
 
-        name.setText(playername);
+        //name.setText(playername);
 
 
 
