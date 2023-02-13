@@ -17,14 +17,23 @@
 
         android:layout_gravity="center"/>-->
 
-    <ImageView
-        android:layout_width="1433.6px"
-        android:layout_height="343.7px"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/pblogopng" />
+
+    <TextView
+        android:id="@+id/playername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="@android:color/background_dark"
+        android:textSize="45sp"/>
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Difficulty"
+        android:textColor="@android:color/background_dark"
+        android:textSize="45sp"/>
 
     <Button
-        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
@@ -33,14 +42,5 @@
         android:textColor="@color/black"
         android:backgroundTint="#9AFFFFFF"
         android:onClick="startGame" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quit"
-        android:fontFamily="sans-serif-condensed-light"
-        android:textSize="32sp"
-        android:textColor="@color/black"
-        android:backgroundTint="#9AFFFFFF"
-        android:onClick="quitGame" />
 
 </LinearLayout>
