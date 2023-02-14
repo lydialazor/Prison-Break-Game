@@ -78,7 +78,6 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
                 Intent intent = new Intent(getApplicationContext(), gamescreen.class);
                 String name = nameinput.getText().toString();
                 intent.putExtra("Name: ",name);
-
                 if (name.equals("")) {
                     Toast t = Toast.makeText(nextscreen.this, "Please enter not null", Toast.LENGTH_SHORT);
                     t.show();
