@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
-public class gamescreen extends AppCompatActivity {
+public class GameScreen extends AppCompatActivity {
     private TextView name;
     private TextView difficulty;
     private ImageButton playerChoice;
@@ -40,6 +40,7 @@ public class gamescreen extends AppCompatActivity {
         } else if (str2.equals("dude3")) {
             playerChoice.setImageResource(R.drawable.dude3);
         }
+
     }
 
 }

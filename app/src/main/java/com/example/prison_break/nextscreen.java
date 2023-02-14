@@ -14,15 +14,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class nextscreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NextScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    TextView Textview;
-    String name;
-    EditText nameinput;
-    Button submitname;
-    ImageButton player1;
-    ImageButton player2;
-    ImageButton player3;
+    private TextView textView;
+    private String name;
+    private EditText nameinput;
+    private Button submitname;
+    private ImageButton player1;
+    private ImageButton player2;
+    private ImageButton player3;
 
 
     @Override
@@ -31,7 +31,8 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
         setContentView(R.layout.nextscreen);
 
         Spinner spinner = findViewById(R.id.difficulty);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.difficulty, android.R.layout.simple_selectable_list_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.difficulty, android.R.layout.simple_selectable_list_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -42,21 +43,24 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(nextscreen.this, "player 1 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NextScreen.this, "player 1 selected",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         player2 = (ImageButton) findViewById(R.id.player2);
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(nextscreen.this, "player 2 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NextScreen.this, "player 2 selected",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         player3 = (ImageButton) findViewById(R.id.player3);
         player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(nextscreen.this, "player 3 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NextScreen.this, "player 3 selected",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -67,7 +71,7 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
         start1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), gamescreen.class);
+                Intent intent = new Intent(getApplicationContext(), GameScreen.class);
                 String name = nameinput.getText().toString();
                 String difficulty = spinner.getSelectedItem().toString();
                 String playerChoice = "";
@@ -78,14 +82,16 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
                 } else {
                     playerChoice = "dude3";
                 }
-                intent.putExtra("Name: ",name);
+                intent.putExtra("Name: ", name);
                 intent.putExtra("Difficulty: ", difficulty);
                 intent.putExtra("Player", playerChoice);
                 if (name.equals("")) {
-                    Toast t = Toast.makeText(nextscreen.this, "Please enter not null", Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(NextScreen.this,
+                            "Please enter not null", Toast.LENGTH_SHORT);
                     t.show();
                 } else if (name.trim().isEmpty()) {
-                    Toast t = Toast.makeText(nextscreen.this, "Please enter a name", Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(NextScreen.this,
+                            "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
                 } else {
                     startActivity(intent);
@@ -100,11 +106,13 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
 
                 name = nameinput.getText().toString();
                 if (name.equals("")) {
-                    Toast t = Toast.makeText(nextscreen.this, "Please enter not null", Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(NextScreen.this,
+                            "Please enter not null", Toast.LENGTH_SHORT);
                     t.show();
                 }
                 if (name.trim().isEmpty()) {
-                    Toast t = Toast.makeText(nextscreen.this, "Please enter a name", Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(NextScreen.this,
+                            "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
                 }
                 showToast(name);
@@ -114,7 +122,7 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
     private void showToast(String text) {
-        Toast.makeText(nextscreen.this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(NextScreen.this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
