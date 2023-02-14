@@ -23,6 +23,8 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
     ImageButton player1;
     ImageButton player2;
     ImageButton player3;
+    EditText playerinput;
+    String sdiff;
 
 
     @Override
@@ -35,6 +37,9 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        sdiff = spinner.getSelectedItem().toString();
+
         nameinput = (EditText) findViewById(R.id.nameinput);
         submitname = (Button) findViewById(R.id.submitname);
 
@@ -68,10 +73,22 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(nextscreen.this, gamescreen.class);
-                //String name = nameinput.getText().toString();
-                //myIntent.putExtra("keyname",name);
                 startActivity(myIntent);
 
+                Intent intent = new Intent(getApplicationContext(), gamescreen.class);
+                String name = nameinput.getText().toString();
+                intent.putExtra("Name: ",name);
+
+                if (name.equals("")) {
+                    Toast t = Toast.makeText(nextscreen.this, "Please enter not null", Toast.LENGTH_SHORT);
+                    t.show();
+                } else if (name.trim().isEmpty()) {
+                    Toast t = Toast.makeText(nextscreen.this, "Please enter a name", Toast.LENGTH_SHORT);
+                    t.show();
+                } else {
+                    startActivity(intent);
+                }
+                showToast(name);
             }
         });
 
@@ -89,7 +106,6 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
                     t.show();
                 }
                 showToast(name);
-
             }
 
         });
