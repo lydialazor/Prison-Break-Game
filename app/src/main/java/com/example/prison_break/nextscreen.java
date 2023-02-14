@@ -69,7 +69,18 @@ public class nextscreen extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), gamescreen.class);
                 String name = nameinput.getText().toString();
+                String difficulty = spinner.getSelectedItem().toString();
+                String playerChoice = "";
+                if (player1.isSelected()) {
+                    playerChoice = "dude1";
+                } else if (player2.isSelected()) {
+                    playerChoice = "dude2";
+                } else {
+                    playerChoice = "dude3";
+                }
                 intent.putExtra("Name: ",name);
+                intent.putExtra("Difficulty: ", difficulty);
+                intent.putExtra("Player", playerChoice);
                 if (name.equals("")) {
                     Toast t = Toast.makeText(nextscreen.this, "Please enter not null", Toast.LENGTH_SHORT);
                     t.show();
