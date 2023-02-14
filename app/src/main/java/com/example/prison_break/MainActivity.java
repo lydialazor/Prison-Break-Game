@@ -18,12 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         start.setOnClickListener(view -> {
-            Intent myIntent = new Intent(MainActivity.this, nextscreen.class);
+            Intent myIntent = new Intent(MainActivity.this, NextScreen.class);
             startActivity(myIntent);
             start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, nextscreen.class);
+                Intent myIntent = new Intent(MainActivity.this, NextScreen.class);
                 startActivity(myIntent);
             }
             });
