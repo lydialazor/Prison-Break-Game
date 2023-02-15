@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.prison_break;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, nextscreen.class);
+                Intent myIntent = new Intent(MainActivity.this, NextScreen.class);
                 startActivity(myIntent);
             }
         });
