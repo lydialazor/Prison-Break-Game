@@ -16,13 +16,17 @@ public class MainActivity extends AppCompatActivity {
         Button start;
         start = findViewById(R.id.start);
 
-        start.setOnClickListener(new View.OnClickListener() {
+
+        start.setOnClickListener(view -> {
+            Intent myIntent = new Intent(MainActivity.this, NextScreen.class);
+            startActivity(myIntent);
+            start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, NextScreen.class);
                 startActivity(myIntent);
             }
+            });
         });
     }
-
 }

@@ -136,4 +136,3 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 }
-
