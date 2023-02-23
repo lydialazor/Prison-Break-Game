@@ -23,6 +23,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
     private ImageButton player1;
     private ImageButton player2;
     private ImageButton player3;
+    private ImageButton choice;
 
 
     @Override
@@ -45,6 +46,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View v) {
                 Toast.makeText(NextScreen.this, "player 1 selected",
                         Toast.LENGTH_SHORT).show();
+                choice = player1;
             }
         });
         player2 = (ImageButton) findViewById(R.id.player2);
@@ -53,6 +55,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View v) {
                 Toast.makeText(NextScreen.this, "player 2 selected",
                         Toast.LENGTH_SHORT).show();
+                choice = player2;
             }
         });
         player3 = (ImageButton) findViewById(R.id.player3);
@@ -61,6 +64,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View v) {
                 Toast.makeText(NextScreen.this, "player 3 selected",
                         Toast.LENGTH_SHORT).show();
+                choice = player3;
             }
         });
 
@@ -75,9 +79,9 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                 String name = nameinput.getText().toString();
                 String difficulty = spinner.getSelectedItem().toString();
                 String playerChoice = "";
-                if (player1.isSelected()) {
+                if (choice == player1) {
                     playerChoice = "dude1";
-                } else if (player2.isSelected()) {
+                } else if (choice == player2) {
                     playerChoice = "dude2";
                 } else {
                     playerChoice = "dude3";
@@ -136,4 +140,3 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 }
-
