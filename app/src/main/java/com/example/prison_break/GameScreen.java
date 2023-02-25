@@ -50,10 +50,10 @@ public class GameScreen extends AppCompatActivity {
         } else if (str2.equals("dude3")) {
             square.setImageResource(R.drawable.dude3);
         }
-        square.setOnTouchListener(this::onTouch);
+        //square.setOnTouchListener(this::onTouch);
         square.setOnKeyListener(this::onKey);
         square.setFocusable(true);
-        square.setFocusableInTouchMode(true);
+        //square.setFocusableInTouchMode(true);
         // get the dimensions of the screen
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -74,7 +74,7 @@ public class GameScreen extends AppCompatActivity {
 
         View river = findViewById(R.id.river);
         //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
-        int riverY = screenHeight - 700 - square.getHeight();
+        int riverY = screenHeight - 850 - square.getHeight();
         river.setX(0);
         river.setY(riverY);
 
@@ -118,27 +118,27 @@ public class GameScreen extends AppCompatActivity {
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                if (squareY > 0) {
-                    square.setY(squareY - 100);
-                    squareY -= 100;
+                if (squareY > 135) {
+                    square.setY(squareY - 50);
+                    squareY -= 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 if (squareY < 1650) { // view.getHeight() - square.getHeight()
-                    square.setY(squareY + 100);
-                    squareY += 100;
+                    square.setY(squareY + 50);
+                    squareY += 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (squareX > 0) {
-                    square.setX(squareX - 100);
-                    squareX -= 100;
+                    square.setX(squareX - 50);
+                    squareX -= 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (squareX < view.getWidth() - square.getWidth() + 850) {
-                    square.setX(squareX + 100);
-                    squareX += 100;
+                if (squareX < view.getWidth() - square.getWidth() + 950) {
+                    square.setX(squareX + 50);
+                    squareX += 50;
                 }
                 break;
             default:
