@@ -57,7 +57,7 @@
     <View
         android:id="@+id/river"
         android:layout_width="2000dp"
-        android:layout_height="100dp"
+        android:layout_height="175dp"
         android:background="@android:color/holo_blue_light"/>
 
     <View
@@ -68,8 +68,8 @@
 
     <ImageView
         android:id="@+id/square"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/dude1"
         />
 </RelativeLayout>
