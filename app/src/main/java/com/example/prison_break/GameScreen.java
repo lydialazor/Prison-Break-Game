@@ -68,9 +68,27 @@ public class GameScreen extends AppCompatActivity {
         // initialize the pos of grass to bottom middle;
         View grass = findViewById(R.id.grass);
         //int grassX = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
-        int grassY = screenHeight - 1000 - square.getHeight();
+        int grassY = screenHeight - square.getHeight();
         grass.setX(0);
-        grass.setY(grassY - 300);
+        grass.setY(grassY - 1711);
+
+        View river = findViewById(R.id.river);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int riverY = screenHeight - 700 - square.getHeight();
+        river.setX(0);
+        river.setY(riverY);
+
+        View goal = findViewById(R.id.goal);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int goalY = screenHeight - 1000 - square.getHeight();
+        goal.setX(0);
+        goal.setY(goalY - 850);
+
+        View road = findViewById(R.id.road);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int roadY = screenHeight - 800 - square.getHeight();
+        road.setX(0);
+        road.setY(roadY - 711);
 
 
     }
