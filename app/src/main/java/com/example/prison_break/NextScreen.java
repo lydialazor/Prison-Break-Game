@@ -89,42 +89,32 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                 intent.putExtra("Name: ", name);
                 intent.putExtra("Difficulty: ", difficulty);
                 intent.putExtra("Player", playerChoice);
-                if (name.equals("")) {
-                    Toast t = Toast.makeText(NextScreen.this,
-                            "Please enter not null", Toast.LENGTH_SHORT);
-                    t.show();
-                } else if (name.trim().isEmpty()) {
+
+                if (!checkInvalidNames(name)) {
+                    showToast(name);
+                    startActivity(intent);
+                } else {
                     Toast t = Toast.makeText(NextScreen.this,
                             "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
-                } else {
-                    startActivity(intent);
                 }
-                showToast(name);
             }
         });
 
         submitname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                name = nameinput.getText().toString();
-                if (name.equals("")) {
-                    Toast t = Toast.makeText(NextScreen.this,
-                            "Please enter not null", Toast.LENGTH_SHORT);
-                    t.show();
-                }
-                if (name.trim().isEmpty()) {
+                if (checkInvalidNames(nameinput.getText().toString())) {
                     Toast t = Toast.makeText(NextScreen.this,
                             "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
+                } else {
+                    showToast(nameinput.getText().toString());
                 }
-                showToast(name);
             }
-
         });
-
     }
+
     private void showToast(String text) {
         Toast.makeText(NextScreen.this, text, Toast.LENGTH_SHORT).show();
     }
@@ -138,5 +128,14 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+    public boolean checkInvalidNames(String name) {
+        if (name.equals("")) {
+            return true;
+        }
+        if (name.trim().isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
