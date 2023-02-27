@@ -138,4 +138,64 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         }
         return false;
     }
+
+    public boolean checkPlayerSelected() {
+        String playerChoice = "";
+        if (choice == player1) {
+            playerChoice = "dude1";
+            return true;
+        } else if (choice == player2) {
+            playerChoice = "dude2";
+            return true;
+        } else if (choice == player3) {
+            playerChoice = "dude3";
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getPlayerChoice() {
+        String playerChoice = "";
+        if (choice == player1) {
+            playerChoice = "dude1";
+        } else if (choice == player2) {
+            playerChoice = "dude2";
+        } else {
+            playerChoice = "dude3";
+        }
+        return "no selection";
+    }
+
+    public ImageButton getChoice() {
+        player1 = (ImageButton) findViewById(R.id.player1);
+        player1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 1 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player1;
+            }
+        });
+        player2 = (ImageButton) findViewById(R.id.player2);
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 2 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player2;
+            }
+        });
+        player3 = (ImageButton) findViewById(R.id.player3);
+        player3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 3 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player3;
+            }
+        });
+        return null;
+    }
 }
+
