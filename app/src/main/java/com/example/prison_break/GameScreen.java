@@ -50,10 +50,10 @@ public class GameScreen extends AppCompatActivity {
         } else if (str2.equals("dude3")) {
             square.setImageResource(R.drawable.dude3);
         }
-        square.setOnTouchListener(this::onTouch);
+        //square.setOnTouchListener(this::onTouch);
         square.setOnKeyListener(this::onKey);
         square.setFocusable(true);
-        square.setFocusableInTouchMode(true);
+        //square.setFocusableInTouchMode(true);
         // get the dimensions of the screen
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -68,9 +68,27 @@ public class GameScreen extends AppCompatActivity {
         // initialize the pos of grass to bottom middle;
         View grass = findViewById(R.id.grass);
         //int grassX = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
-        int grassY = screenHeight - 1000 - square.getHeight();
+        int grassY = screenHeight - square.getHeight();
         grass.setX(0);
-        grass.setY(grassY - 300);
+        grass.setY(grassY - 1711);
+
+        View river = findViewById(R.id.river);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int riverY = screenHeight - 850 - square.getHeight();
+        river.setX(0);
+        river.setY(riverY);
+
+        View goal = findViewById(R.id.goal);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int goalY = screenHeight - 1000 - square.getHeight();
+        goal.setX(0);
+        goal.setY(goalY - 850);
+
+        View road = findViewById(R.id.road);
+        //int river = (screenWidth - 1100); //  - square.getWidth()) / 2 - 700
+        int roadY = screenHeight - 800 - square.getHeight();
+        road.setX(0);
+        road.setY(roadY - 711);
 
 
     }
@@ -100,27 +118,27 @@ public class GameScreen extends AppCompatActivity {
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                if (squareY > 0) {
-                    square.setY(squareY - 100);
-                    squareY -= 100;
+                if (squareY > 135) {
+                    square.setY(squareY - 50);
+                    squareY -= 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 if (squareY < 1650) { // view.getHeight() - square.getHeight()
-                    square.setY(squareY + 100);
-                    squareY += 100;
+                    square.setY(squareY + 50);
+                    squareY += 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (squareX > 0) {
-                    square.setX(squareX - 100);
-                    squareX -= 100;
+                    square.setX(squareX - 50);
+                    squareX -= 50;
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (squareX < view.getWidth() - square.getWidth() + 850) {
-                    square.setX(squareX + 100);
-                    squareX += 100;
+                if (squareX < view.getWidth() - square.getWidth() + 950) {
+                    square.setX(squareX + 50);
+                    squareX += 50;
                 }
                 break;
             default:
