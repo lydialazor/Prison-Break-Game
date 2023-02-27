@@ -2,6 +2,8 @@ package com.example.prison_break;
 
 import static org.junit.Assert.*;
 
+import android.widget.ImageButton;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -21,6 +23,12 @@ public class NextScreenTest extends TestCase {
     void nullNameTest() {
         String name = null;
         assertEquals(true, instance.checkInvalidNames(name));
+    }
+
+    public void playerSelect() {
+        String choice = instance.getPlayerChoice();
+        ImageButton button = instance.getChoice();
+        assertTrue(instance.checkPlayerSelected());
     }
 
 }
