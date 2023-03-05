@@ -13,22 +13,28 @@ public class NextScreenTest extends TestCase {
 
     //checks empty String inputs
     @Test
-    void emptyNameTest() {
+    void testEmptyName() {
         String name = "";
         assertEquals(true, instance.checkInvalidNames(name));
     }
 
     //checks null inputs
     @Test
-    void nullNameTest() {
+    void testNullName() {
         String name = null;
         assertEquals(true, instance.checkInvalidNames(name));
     }
 
-    public void playerSelect() {
+    @Test
+    public void testPlayerSelect() {
         String choice = instance.getPlayerChoice();
         ImageButton button = instance.getChoice();
         assertTrue(instance.checkPlayerSelected());
     }
+    @Test
+    public void difficultySelect() {
+        assertEquals(false,instance.checkInvalidDifficulty(instance.getDifficulty()));
+    }
+
 
 }
