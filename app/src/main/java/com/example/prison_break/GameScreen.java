@@ -23,6 +23,8 @@ public class GameScreen extends AppCompatActivity {
     private int squareX, squareY;
     private int prevX, prevY;
 
+    private String str1;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +150,12 @@ public class GameScreen extends AppCompatActivity {
         return true;
     }
 
+    public boolean diffTextView() {
+        if (str1.equals("Easy (3 Lives") || str1.equals("Medium (2 Lives") || str1.equals("Hard (1 Life")) {
+            return true;
+        }
+        return false;
+    }
     }
 
 
