@@ -18,13 +18,15 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     private TextView textView;
     private String name;
+
+    private String difficulty;
     private EditText nameinput;
     private Button submitname;
     private ImageButton player1;
     private ImageButton player2;
     private ImageButton player3;
     private ImageButton choice;
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,6 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-
         Button start1;
         start1 = findViewById(R.id.start1);
 
@@ -87,13 +88,19 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                     playerChoice = "dude3";
                 }
                 intent.putExtra("Name: ", name);
-                intent.putExtra("Difficulty: ", difficulty);
+                if (!difficulty.equals("Please choose a difficulty")) {
+                    intent.putExtra("Difficulty: ", difficulty);
+                }
                 intent.putExtra("Player", playerChoice);
 
-                if (!checkInvalidNames(name)) {
+                if (!checkInvalidNames(name) && !checkInvalidDifficulty(difficulty)) {
                     showToast(name);
+                    showToast(difficulty);
                     startActivity(intent);
-                } else {
+                } else if (!checkInvalidDifficulty(difficulty)) {
+                    Toast t = Toast.makeText(NextScreen.this, "Please choose your difficulty",Toast.LENGTH_SHORT);
+                }
+                else {
                     Toast t = Toast.makeText(NextScreen.this,
                             "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
@@ -130,6 +137,10 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
     public boolean checkInvalidNames(String name) {
+        if (name == null) {
+            return true;
+        }
+
         if (name.equals("")) {
             return true;
         }
@@ -138,4 +149,76 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         }
         return false;
     }
+
+    public boolean checkInvalidDifficulty(String difficulty) {
+        if (difficulty.equals("Please choose a difficulty")) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkPlayerSelected() {
+        String playerChoice = "";
+        if (choice == player1) {
+            playerChoice = "dude1";
+            return true;
+        } else if (choice == player2) {
+            playerChoice = "dude2";
+            return true;
+        } else if (choice == player3) {
+            playerChoice = "dude3";
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public String getPlayerChoice() {
+        String playerChoice = "";
+        if (choice == player1) {
+            playerChoice = "dude1";
+        } else if (choice == player2) {
+            playerChoice = "dude2";
+        } else {
+            playerChoice = "dude3";
+        }
+        return "no selection";
+    }
+
+
+    public ImageButton getChoice() {
+        player1 = (ImageButton) findViewById(R.id.player1);
+        player1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 1 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player1;
+            }
+        });
+        player2 = (ImageButton) findViewById(R.id.player2);
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 2 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player2;
+            }
+        });
+        player3 = (ImageButton) findViewById(R.id.player3);
+        player3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 3 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player3;
+            }
+        });
+        return null;
+    }
 }
+
