@@ -4,23 +4,23 @@ import static org.junit.Assert.*;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-public class NextScreenTest extends TestCase {
+public class NextScreenTest {
     NextScreen instance = new NextScreen();
 
     //checks empty String inputs
     @Test
-    void emptyNameTest() {
+    public void testemptyName() {
         String name = "";
-        assertEquals(true, instance.checkInvalidNames(name));
+        Assert.assertEquals(true, instance.checkInvalidNames(name));
     }
 
     //checks null inputs
     @Test
-    void nullNameTest() {
+    public void testnullName() {
         String name = null;
-        assertEquals(true, instance.checkInvalidNames(name));
+        Assert.assertEquals(true, instance.checkInvalidNames(name));
     }
-
 }
