@@ -9,7 +9,12 @@ import com.example.prison_break.R;
 public enum GameCharacters {
 
     PLAYER1(R.drawable.dude1),
-    PLAYER2(R.drawable.dude2);
+    //PLAYER2(R.drawable.dude2),
+    VEHICLE(R.drawable.copcar),
+
+    TRUCK(R.drawable.swattruck),
+
+    TANK(R.drawable.tank);
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Bitmap d1;
