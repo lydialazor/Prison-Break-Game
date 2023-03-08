@@ -18,13 +18,15 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     private TextView textView;
     private String name;
+
+    private String difficulty;
     private EditText nameinput;
     private Button submitname;
     private ImageButton player1;
     private ImageButton player2;
     private ImageButton player3;
     private ImageButton choice;
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,6 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-
         Button start1;
         start1 = findViewById(R.id.start1);
 
@@ -87,13 +88,19 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                     playerChoice = "dude3";
                 }
                 intent.putExtra("Name: ", name);
-                intent.putExtra("Difficulty: ", difficulty);
+                if (!difficulty.equals("Please choose a difficulty")) {
+                    intent.putExtra("Difficulty: ", difficulty);
+                }
                 intent.putExtra("Player", playerChoice);
 
-                if (!checkInvalidNames(name)) {
+                if (!checkInvalidNames(name) && !checkInvalidDifficulty(difficulty)) {
                     showToast(name);
+                    showToast(difficulty);
                     startActivity(intent);
-                } else {
+                } else if (!checkInvalidDifficulty(difficulty)) {
+                    Toast t = Toast.makeText(NextScreen.this, "Please choose your difficulty",Toast.LENGTH_SHORT);
+                }
+                else {
                     Toast t = Toast.makeText(NextScreen.this,
                             "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
@@ -130,10 +137,21 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
     public boolean checkInvalidNames(String name) {
+        if (name == null) {
+            return true;
+        }
+
         if (name.equals("")) {
             return true;
         }
         if (name.trim().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkInvalidDifficulty(String difficulty) {
+        if (difficulty.equals("Please choose a difficulty")) {
             return true;
         }
         return false;
@@ -155,6 +173,10 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         }
     }
 
+    public String getDifficulty() {
+        return difficulty;
+    }
+
     public String getPlayerChoice() {
         String playerChoice = "";
         if (choice == player1) {
@@ -166,6 +188,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         }
         return "no selection";
     }
+
 
     public ImageButton getChoice() {
         player1 = (ImageButton) findViewById(R.id.player1);
