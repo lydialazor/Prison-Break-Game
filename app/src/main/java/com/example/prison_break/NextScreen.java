@@ -26,7 +26,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
     private ImageButton player2;
     private ImageButton player3;
     private ImageButton choice;
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,6 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                 choice = player3;
             }
         });
-
 
         Button start1;
         start1 = findViewById(R.id.start1);
@@ -138,6 +137,10 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
 
     }
     public boolean checkInvalidNames(String name) {
+        if (name == null) {
+            return true;
+        }
+
         if (name.equals("")) {
             return true;
         }

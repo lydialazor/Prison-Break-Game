@@ -1,5 +1,29 @@
 package com.example.prison_break;
 
+import android.content.Context;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class GameScreen extends AppCompatActivity {
+    private static Context gameContext;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(new GamePanel(this));
+        gameContext = this;
+    }
+
+    public static Context getContext() {
+        return gameContext;
+    }
+
+}
+
+
+
+/** package com.example.prison_break;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -18,7 +42,6 @@ public class GameScreen extends AppCompatActivity {
     private TextView difficulty;
     private ImageButton playerChoice;
     private Button add;
-
     private ImageView square;
     private int squareX, squareY;
     private int prevX, prevY;
@@ -91,8 +114,6 @@ public class GameScreen extends AppCompatActivity {
         int roadY = screenHeight - 800 - square.getHeight();
         road.setX(0);
         road.setY(roadY - 711);
-
-
     }
 
     public boolean onTouch(View view, MotionEvent event) {
@@ -146,7 +167,6 @@ public class GameScreen extends AppCompatActivity {
             default:
                 return false;
         }
-
         return true;
     }
 

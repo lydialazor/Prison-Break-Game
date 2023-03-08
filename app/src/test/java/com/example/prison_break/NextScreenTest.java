@@ -6,23 +6,26 @@ import android.widget.ImageButton;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-public class NextScreenTest extends TestCase {
+public class NextScreenTest {
     NextScreen instance = new NextScreen();
 
     //checks empty String inputs
     @Test
-    void testEmptyName() {
+
+    public void testEmptyName() {
         String name = "";
-        assertEquals(true, instance.checkInvalidNames(name));
+        Assert.assertEquals(true, instance.checkInvalidNames(name));
     }
 
     //checks null inputs
     @Test
-    void testNullName() {
+
+    public void testNullName() {
         String name = null;
-        assertEquals(true, instance.checkInvalidNames(name));
+        Assert.assertEquals(true, instance.checkInvalidNames(name));
     }
 
     @Test
@@ -35,6 +38,4 @@ public class NextScreenTest extends TestCase {
     public void difficultySelect() {
         assertEquals(false,instance.checkInvalidDifficulty(instance.getDifficulty()));
     }
-
-
 }
