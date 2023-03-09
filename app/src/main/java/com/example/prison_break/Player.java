@@ -12,12 +12,29 @@ public class Player {
     private static int y;
     private static String name;
     private static Bitmap player;
+    private static int changeX;
+    private static int changeY;
 
-    public Player(int xpos, int ypos) {
+    public Player() {
         setPlayer();
-        x = xpos;
-        y = ypos;
+        x = 500 + changeX;
+        y = 1500 + changeY;
 
+    }
+
+    public static void setX(String s) {
+            if (s == "left" && x > 0) {
+                changeX -= 50;
+            } else if (s == "right" && x < 1000) {
+                changeX += 50;
+            }
+    }
+    public static void setY(String s) {
+            if (s == "up" && y > 0) {
+                changeY -= 50;
+            } else if (s == "down" && y <= 1500) {
+                changeY += 50;
+            }
     }
 
     public int getX() {
@@ -41,19 +58,6 @@ public class Player {
         return player;
     }
 
-    public void move(String s) {
-        if (s == "UP") {
-            y -= 100;
-     } else if (s == "DOWN") {
-        y += 100;
-     }
-     if (s == "LEFT") {
-        x -= 100;
-     } else if (s == "RIGHT") {
-        x += 100;
-     }
-
-    }
 
 }
 
