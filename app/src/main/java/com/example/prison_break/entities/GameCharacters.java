@@ -9,7 +9,8 @@ import com.example.prison_break.R;
 public enum GameCharacters {
 
     PLAYER1(R.drawable.dude1),
-    //PLAYER2(R.drawable.dude2),
+    PLAYER2(R.drawable.dude2),
+    PLAYER3(R.drawable.dude3),
     VEHICLE(R.drawable.copcar),
 
     TRUCK(R.drawable.swattruck),
