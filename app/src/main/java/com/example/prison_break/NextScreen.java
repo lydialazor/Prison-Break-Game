@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prison_break.helpers.GameConstants;
+
 public class NextScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView textView;
@@ -81,11 +83,11 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                 String difficulty = spinner.getSelectedItem().toString();
                 String playerChoice = "";
                 if (choice == player1) {
-                    playerChoice = "dude1";
+                    GameConstants.setPlayer("dude1");
                 } else if (choice == player2) {
-                    playerChoice = "dude2";
+                    GameConstants.setPlayer("dude2");
                 } else {
-                    playerChoice = "dude3";
+                    GameConstants.setPlayer("dude3");
                 }
                 intent.putExtra("Name: ", name);
                 if (!difficulty.equals("Please choose a difficulty")) {
