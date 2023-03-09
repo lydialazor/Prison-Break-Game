@@ -1,17 +1,24 @@
 package com.example.prison_break;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameScreen extends AppCompatActivity {
     private static Context gameContext;
+    public static String playerChoice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new GamePanel(this));
         gameContext = this;
+
+
+        setContentView(new GamePanel(this));
+
+
     }
 
     public static Context getContext() {
@@ -21,8 +28,7 @@ public class GameScreen extends AppCompatActivity {
 }
 
 
-
-/** package com.example.prison_break;
+/**
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -177,5 +183,6 @@ public class GameScreen extends AppCompatActivity {
         return false;
     }
     }
+ **/
 
 

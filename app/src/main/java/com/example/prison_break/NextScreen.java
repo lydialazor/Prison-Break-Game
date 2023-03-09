@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prison_break.entities.GameConstants;
+
 public class NextScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView textView;
@@ -26,7 +28,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
     private ImageButton player2;
     private ImageButton player3;
     private ImageButton choice;
-    
+    private String playerChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,15 +79,15 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GameScreen.class);
+
                 String name = nameinput.getText().toString();
                 String difficulty = spinner.getSelectedItem().toString();
-                String playerChoice = "";
                 if (choice == player1) {
-                    playerChoice = "dude1";
+                    GameConstants.setPlayer("dude1");
                 } else if (choice == player2) {
-                    playerChoice = "dude2";
+                    GameConstants.setPlayer("dude2");
                 } else {
-                    playerChoice = "dude3";
+                    GameConstants.setPlayer("dude3");
                 }
                 intent.putExtra("Name: ", name);
                 if (!difficulty.equals("Please choose a difficulty")) {
@@ -131,6 +133,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         String text = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -186,7 +189,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         } else {
             playerChoice = "dude3";
         }
-        return "no selection";
+        return playerChoice;
     }
 
 

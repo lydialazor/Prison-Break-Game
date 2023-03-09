@@ -1,6 +1,7 @@
 package com.example.prison_break;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,45 +14,34 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import com.example.prison_break.entities.GameCharacters;
+import com.example.prison_break.entities.GameConstants;
 
 import java.util.ArrayList;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-    private Paint player1hair = new Paint();
     private SurfaceHolder holder;
     private int xDir = 1;
     private int yDir = 1;
     private GameLoop gameLoop;
-    private NextScreen nextscreen;
     private float x,y;
-    //private enum playerchosen;
+    private String playerChoice;
 
     public GamePanel(Context context) {
         super(context);
         holder = getHolder();
         holder.addCallback(this);
-        nextscreen  = new NextScreen();
-
         gameLoop = new GameLoop(this);
     }
 
     public void render() {
         Canvas c = holder.lockCanvas();
         c.drawColor(Color.BLACK);
-        c.drawBitmap(GameCharacters.PLAYER1.getSprite(), 500, 500, null);
-        c.drawBitmap(GameCharacters.PLAYER2.getSprite(), 4, 0, null);
-
-
-
         holder.unlockCanvasAndPost(c);
 
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-        }
-
         return true;
     }
 

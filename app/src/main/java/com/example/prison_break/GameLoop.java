@@ -12,13 +12,13 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
         while (true) {
-            //gamePanel.update();
             gamePanel.render();
 
         }
     }
 
     public void startGameLoop() {
+
         gameThread.start();
     }
 
