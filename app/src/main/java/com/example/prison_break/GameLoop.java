@@ -23,6 +23,7 @@ public class GameLoop implements Runnable {
 
             gamePanel.update(delta);
             gamePanel.render();
+
             lastDelta = nowDelta;
             fps++;
 
