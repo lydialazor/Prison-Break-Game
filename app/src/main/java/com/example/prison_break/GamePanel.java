@@ -28,17 +28,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameLoop;
     private NextScreen nextscreen;
     private Random rand = new Random();
-    private float x,y;
-    //private enum playerchosen;
+
     private ArrayList<PointF> vehicles = new ArrayList<>();
     private ArrayList<PointF> trucks = new ArrayList<>();
 
     private ArrayList<PointF> tanks = new ArrayList<>();
     private PointF vehiclePos;
-    //private int vehicleDir = GameConstants.Face_Dir.DOWN;
 
     public GamePanel(Context context) {
         super(context);
+
+
         holder = getHolder();
         holder.addCallback(this);
         nextscreen  = new NextScreen();
@@ -53,15 +53,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(300, 600));
+            vehicles.add(new PointF(300, 500));
         }
 
         for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(100, 800));
+            trucks.add(new PointF(100, 1200));
         }
 
         for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(500, 800));
+            trucks.add(new PointF(500, 1200));
         }
 
         for(int i = 0; i < 50; i++) {
@@ -74,14 +74,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void render() {
         Canvas c = holder.lockCanvas();
+        Player p = new Player();
         c.drawColor(Color.BLACK);
-        c.drawBitmap(GameCharacters.PLAYER1.getSprite(), 500, 1500, null);
-        //c.drawBitmap(GameCharacters.PLAYER2.getSprite(), 4, 0, null);
+        c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
+        c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
+
 
         for(PointF pos: vehicles) {
             c.drawBitmap(GameCharacters.VEHICLE.getSprite(), pos.x, pos.y, null);
         }
-        //c.drawBitmap(GameCharacters.VEHICLE.getSprite(), 100, 100, null );
+
         for(PointF pos: trucks) {
             c.drawBitmap(GameCharacters.TRUCK.getSprite(), pos.x, pos.y, null);
         }
@@ -96,6 +98,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(double delta) {
+
          for(PointF pos: vehicles) {
              pos.x += delta * 800;
 
@@ -118,15 +121,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            x = event.getX();
-            y = event.getY();
-        }
 
-        return true;
-    }
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
@@ -143,26 +138,4 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    private class RndSquare {
-        private PointF pos;
-        private int size;
-        private Paint paint;
-        private int xDir = 1, yDir = 1;
-
-        public void move(double delta) {
-            pos.x += xDir * delta - 100;
-            if (pos.x >= 1080 || pos.x <= 0) {
-                xDir += 1;
-            }
-
-            pos.y += yDir * delta - 100;
-            if (pos.y >= 1920 || pos.y <= 0) {
-                yDir += 1;
-            }
-        }
-
-        public void draw(Canvas c) {
-            c.drawRect(pos.x, pos.y, pos.x + size, pos.y + size, paint);
-        }
-    }
 }

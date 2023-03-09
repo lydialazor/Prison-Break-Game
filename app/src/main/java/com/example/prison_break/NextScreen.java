@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prison_break.helpers.GameConstants;
+
 public class NextScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView textView;
@@ -78,27 +80,30 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GameScreen.class);
                 String name = nameinput.getText().toString();
+                GameConstants.setName(name);
                 String difficulty = spinner.getSelectedItem().toString();
                 String playerChoice = "";
                 if (choice == player1) {
-                    playerChoice = "dude1";
+                    GameConstants.setPlayer("dude1");
                 } else if (choice == player2) {
-                    playerChoice = "dude2";
+                    GameConstants.setPlayer("dude2");
                 } else {
-                    playerChoice = "dude3";
+                    GameConstants.setPlayer("dude3");
                 }
                 intent.putExtra("Name: ", name);
+
                 if (!difficulty.equals("Please choose a difficulty")) {
                     intent.putExtra("Difficulty: ", difficulty);
+                    GameConstants.setDifficulty(difficulty);
                 }
                 intent.putExtra("Player", playerChoice);
 
                 if (!checkInvalidNames(name) && !checkInvalidDifficulty(difficulty)) {
-                    showToast(name);
-                    showToast(difficulty);
+                    //showToast(name);
+                    //showToast(difficulty);
                     startActivity(intent);
                 } else if (!checkInvalidDifficulty(difficulty)) {
-                    Toast t = Toast.makeText(NextScreen.this, "Please choose your difficulty",Toast.LENGTH_SHORT);
+                    //Toast t = Toast.makeText(NextScreen.this, "Please choose your difficulty",Toast.LENGTH_SHORT);
                 }
                 else {
                     Toast t = Toast.makeText(NextScreen.this,
@@ -111,7 +116,7 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         submitname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkInvalidNames(nameinput.getText().toString())) {
+                if (checkInvalidNames(name)) {
                     Toast t = Toast.makeText(NextScreen.this,
                             "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
@@ -140,7 +145,6 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         if (name == null) {
             return true;
         }
-
         if (name.equals("")) {
             return true;
         }
