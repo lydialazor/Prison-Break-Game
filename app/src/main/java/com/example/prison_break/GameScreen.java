@@ -2,6 +2,8 @@ package com.example.prison_break;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +12,36 @@ public class GameScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new GamePanel(this));
+        GamePanel gp = new GamePanel(this);
+        gp.setFocusable(true);
+        gp.setFocusableInTouchMode(true);
+        gp.requestFocus();
+
         gameContext = this;
+
+        gp.setOnKeyListener( new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                            Player.setY("down");
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        Player.setY("up");
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        Player.setX("left");
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        Player.setX("right");
+                        break;
+                }
+                return true;
+            }
+        }
+
+        );
+        setContentView(gp);
     }
 
     public static Context getContext() {
