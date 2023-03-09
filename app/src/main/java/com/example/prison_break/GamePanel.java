@@ -29,13 +29,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private NextScreen nextscreen;
     private Random rand = new Random();
     private float x,y;
-    //private enum playerchosen;
+
     private ArrayList<PointF> vehicles = new ArrayList<>();
     private ArrayList<PointF> trucks = new ArrayList<>();
 
     private ArrayList<PointF> tanks = new ArrayList<>();
     private PointF vehiclePos;
-    //private int vehicleDir = GameConstants.Face_Dir.DOWN;
 
     public GamePanel(Context context) {
         super(context);
@@ -74,9 +73,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void render() {
         Canvas c = holder.lockCanvas();
+        Player p = new Player(500, 1500);
+
         c.drawColor(Color.BLACK);
-        c.drawBitmap(GameCharacters.PLAYER1.getSprite(), 500, 1500, null);
-        //c.drawBitmap(GameCharacters.PLAYER2.getSprite(), 4, 0, null);
+        c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
+
 
         for(PointF pos: vehicles) {
             c.drawBitmap(GameCharacters.VEHICLE.getSprite(), pos.x, pos.y, null);
@@ -118,13 +119,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            x = event.getX();
-            y = event.getY();
-        }
 
+    public boolean onKey(int keyCode, KeyEvent event) {
         return true;
     }
 
@@ -143,26 +139,4 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    private class RndSquare {
-        private PointF pos;
-        private int size;
-        private Paint paint;
-        private int xDir = 1, yDir = 1;
-
-        public void move(double delta) {
-            pos.x += xDir * delta - 100;
-            if (pos.x >= 1080 || pos.x <= 0) {
-                xDir += 1;
-            }
-
-            pos.y += yDir * delta - 100;
-            if (pos.y >= 1920 || pos.y <= 0) {
-                yDir += 1;
-            }
-        }
-
-        public void draw(Canvas c) {
-            c.drawRect(pos.x, pos.y, pos.x + size, pos.y + size, paint);
-        }
-    }
 }
