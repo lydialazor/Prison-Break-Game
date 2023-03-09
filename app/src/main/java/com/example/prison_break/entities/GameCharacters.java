@@ -10,7 +10,10 @@ public enum GameCharacters {
 
     PLAYER1(R.drawable.dude1),
     PLAYER2(R.drawable.dude2),
-    PLAYER3(R.drawable.dude3);
+    PLAYER3(R.drawable.dude3),
+    VEHICLE(R.drawable.copcar),
+    TRUCK(R.drawable.swattruck),
+    TANK(R.drawable.tank);
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Bitmap d1;
@@ -23,6 +26,5 @@ public enum GameCharacters {
     public Bitmap getSprite() {
         return d1;
     }
-
 
 }
