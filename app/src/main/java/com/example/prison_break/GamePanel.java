@@ -28,7 +28,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameLoop;
     private NextScreen nextscreen;
     private Random rand = new Random();
-    private float x,y;
 
     private ArrayList<PointF> vehicles = new ArrayList<>();
     private ArrayList<PointF> trucks = new ArrayList<>();
@@ -38,6 +37,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public GamePanel(Context context) {
         super(context);
+
+
         holder = getHolder();
         holder.addCallback(this);
         nextscreen  = new NextScreen();
@@ -52,15 +53,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(300, 600));
+            vehicles.add(new PointF(300, 500));
         }
 
         for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(100, 800));
+            trucks.add(new PointF(100, 1200));
         }
 
         for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(500, 800));
+            trucks.add(new PointF(500, 1200));
         }
 
         for(int i = 0; i < 50; i++) {
@@ -73,16 +74,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void render() {
         Canvas c = holder.lockCanvas();
-        Player p = new Player(500, 1500);
-
+        Player p = new Player();
         c.drawColor(Color.BLACK);
+        c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
         c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
 
 
         for(PointF pos: vehicles) {
             c.drawBitmap(GameCharacters.VEHICLE.getSprite(), pos.x, pos.y, null);
         }
-        //c.drawBitmap(GameCharacters.VEHICLE.getSprite(), 100, 100, null );
+
         for(PointF pos: trucks) {
             c.drawBitmap(GameCharacters.TRUCK.getSprite(), pos.x, pos.y, null);
         }
@@ -97,6 +98,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(double delta) {
+
          for(PointF pos: vehicles) {
              pos.x += delta * 800;
 
@@ -120,9 +122,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public boolean onKey(int keyCode, KeyEvent event) {
-        return true;
-    }
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {

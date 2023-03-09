@@ -12,7 +12,7 @@ public enum GameCharacters {
     PLAYER2(R.drawable.dude2),
     PLAYER3(R.drawable.dude3),
     VEHICLE(R.drawable.copcar),
-
+    BACKGROUND(R.drawable.testbackground),
     TRUCK(R.drawable.swattruck),
 
     TANK(R.drawable.tank);
