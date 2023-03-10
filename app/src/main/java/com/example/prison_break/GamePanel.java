@@ -5,17 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import com.example.prison_break.entities.GameCharacters;
-import com.example.prison_break.helpers.GameConstants;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,6 +30,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private ArrayList<PointF> tanks = new ArrayList<>();
     private PointF vehiclePos;
+    private int VEHICLE_WIDTH = 130;
+    private int VEHICLE_HEIGHT = 52;
+
 
     public GamePanel(Context context) {
         super(context);
@@ -122,6 +121,30 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    // checks whether the cop car vehicles collide or not
+    public boolean doVehiclesCollide(PointF pos1, PointF pos2) {
+        // calculate the boxes for the two vehicles
+        RectF box1 = new RectF(pos1.x - VEHICLE_WIDTH / 2, pos1.y - VEHICLE_HEIGHT / 2,
+                pos1.x + VEHICLE_WIDTH / 2, pos1.y + VEHICLE_HEIGHT / 2);
+        RectF box2 = new RectF(pos2.x - VEHICLE_WIDTH / 2, pos2.y - VEHICLE_HEIGHT / 2,
+                pos2.x + VEHICLE_WIDTH / 2, pos2.y + VEHICLE_HEIGHT / 2);
+        return box1.intersect(box2);
+    }
+
+    // getter method for vehicles
+    public ArrayList<PointF> getVehicles() {
+        return vehicles;
+    }
+
+    // getter method for trucks
+    public ArrayList<PointF> getTrucks () {
+        return trucks;
+    }
+
+    // getter method for tanks
+    public ArrayList<PointF> getTanks() {
+        return tanks;
+    }
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
