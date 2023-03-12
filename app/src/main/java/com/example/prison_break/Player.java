@@ -40,7 +40,7 @@ public class Player {
     public int getX() {
         return x;
     }
-    public int getY() {
+    public static int getY() {
         return y;
     }
     private void setPlayer() {
