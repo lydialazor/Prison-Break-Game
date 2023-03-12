@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.prison_break.entities.GameCharacters;
+import com.example.prison_break.helpers.GameConstants;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,6 +33,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private PointF vehiclePos;
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
+
+    private static int num = 0;
+    private static int tracker = 1501;
 
 
     public GamePanel(Context context) {
@@ -74,9 +78,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void render() {
         Canvas c = holder.lockCanvas();
         Player p = new Player();
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setTextSize(80);
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
         c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
+        String name = GameConstants.getName();
+        String lives = GameConstants.getDifficulty();
+        if (lives.equals("Easy (3 Lives")) {
+            lives = "Lives: " + 3;
+        } else if (lives.equals("Medium (2 Lives")) {
+            lives = "Lives: " + 2;
+        } else {
+            lives = "Lives: " + 1;
+        }
+        c.drawText(name, 30, 80, paint);
+        c.drawText(lives, 800, 80, paint);
+        String score = "Score: " + num;
+        c.drawText(score,400, 80, paint);
 
 
         for(PointF pos: vehicles) {
@@ -95,6 +115,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         holder.unlockCanvasAndPost(c);
 
     }
+
 
     public void update(double delta) {
 
@@ -146,6 +167,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return tanks;
     }
 
+    public static void setPoints(int x) {
+        num += x;
+    }
+
+    public static void setTracker(int yCoor) {
+        tracker = yCoor;
+    }
+
+    public static int getTracker() {
+        return tracker;
+    }
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         gameLoop.startGameLoop();
