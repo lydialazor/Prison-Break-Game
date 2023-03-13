@@ -5,13 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import com.example.prison_break.entities.GameCharacters;
@@ -34,6 +31,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private ArrayList<PointF> tanks = new ArrayList<>();
     private PointF vehiclePos;
+    private int VEHICLE_WIDTH = 130;
+    private int VEHICLE_HEIGHT = 52;
+
+    private static int num = 0;
+    private static int tracker = 1501;
+
 
     public GamePanel(Context context) {
         super(context);
@@ -75,9 +78,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void render() {
         Canvas c = holder.lockCanvas();
         Player p = new Player();
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setTextSize(80);
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
         c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
+        String name = GameConstants.getName();
+        String lives = GameConstants.getDifficulty();
+        if (lives.equals("Easy (3 Lives")) {
+            lives = "Lives: " + 3;
+        } else if (lives.equals("Medium (2 Lives")) {
+            lives = "Lives: " + 2;
+        } else {
+            lives = "Lives: " + 1;
+        }
+        c.drawText(name, 30, 80, paint);
+        c.drawText(lives, 800, 80, paint);
+        String score = "Score: " + num;
+        c.drawText(score,400, 80, paint);
 
 
         for(PointF pos: vehicles) {
@@ -96,6 +115,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         holder.unlockCanvasAndPost(c);
 
     }
+
 
     public void update(double delta) {
 
@@ -122,7 +142,42 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    // checks whether the cop car vehicles collide or not
+    public boolean doVehiclesCollide(PointF pos1, PointF pos2) {
+        // calculate the boxes for the two vehicles
+        RectF box1 = new RectF(pos1.x - VEHICLE_WIDTH / 2, pos1.y - VEHICLE_HEIGHT / 2,
+                pos1.x + VEHICLE_WIDTH / 2, pos1.y + VEHICLE_HEIGHT / 2);
+        RectF box2 = new RectF(pos2.x - VEHICLE_WIDTH / 2, pos2.y - VEHICLE_HEIGHT / 2,
+                pos2.x + VEHICLE_WIDTH / 2, pos2.y + VEHICLE_HEIGHT / 2);
+        return box1.intersect(box2);
+    }
 
+    // getter method for vehicles
+    public ArrayList<PointF> getVehicles() {
+        return vehicles;
+    }
+
+    // getter method for trucks
+    public ArrayList<PointF> getTrucks () {
+        return trucks;
+    }
+
+    // getter method for tanks
+    public ArrayList<PointF> getTanks() {
+        return tanks;
+    }
+
+    public static void setPoints(int x) {
+        num += x;
+    }
+
+    public static void setTracker(int yCoor) {
+        tracker = yCoor;
+    }
+
+    public static int getTracker() {
+        return tracker;
+    }
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         gameLoop.startGameLoop();
