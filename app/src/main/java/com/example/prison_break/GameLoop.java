@@ -16,6 +16,7 @@ public class GameLoop implements Runnable {
 
         long lastDelta = System.nanoTime();
         long nanoSec = 1_000_000_000;
+
         while (true) {
             long nowDelta = System.nanoTime();
             double timeSinceLastDelta = nowDelta - lastDelta;
@@ -23,6 +24,7 @@ public class GameLoop implements Runnable {
 
             gamePanel.update(delta);
             gamePanel.render();
+
             lastDelta = nowDelta;
             fps++;
 

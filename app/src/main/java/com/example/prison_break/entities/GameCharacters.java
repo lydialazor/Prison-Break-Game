@@ -12,7 +12,9 @@ public enum GameCharacters {
     PLAYER2(R.drawable.dude2),
     PLAYER3(R.drawable.dude3),
     VEHICLE(R.drawable.copcar),
+    BACKGROUND(R.drawable.testbackground),
     TRUCK(R.drawable.swattruck),
+
     TANK(R.drawable.tank);
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
@@ -21,10 +23,12 @@ public enum GameCharacters {
     GameCharacters(int resID) {
         options.inScaled = false;
         d1 = BitmapFactory.decodeResource(GameScreen.getContext().getResources(), resID, options);
+
     }
 
     public Bitmap getSprite() {
         return d1;
     }
+
 
 }
