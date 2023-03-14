@@ -86,9 +86,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
         String name = GameConstants.getName();
         String lives = GameConstants.getDifficulty();
-        if (lives.equals("Easy (3 Lives")) {
+        if (lives.equals("Easy (3 Lives)")) {
             lives = "Lives: " + 3;
-        } else if (lives.equals("Medium (2 Lives")) {
+        } else if (lives.equals("Medium (2 Lives)")) {
             lives = "Lives: " + 2;
         } else {
             lives = "Lives: " + 1;
