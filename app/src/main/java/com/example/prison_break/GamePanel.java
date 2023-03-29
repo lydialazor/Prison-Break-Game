@@ -39,6 +39,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private static int tracker = 1501;
     private Player player;
 
+    private static int numLives;
+
+
+
 
 
     public GamePanel(Context context) {
@@ -75,6 +79,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for(int i = 0; i < 50; i++) {
             tanks.add(new PointF(200, 300));
         }
+        String lives = GameConstants.getDifficulty();
+        if (lives.equals("Easy (3 Lives)")) {
+            numLives = 3;
+        } else if (lives.equals("Medium (2 Lives)")) {
+            numLives = 2;
+        } else {
+            numLives = 1;
+        }
     }
 
     public void render() {
@@ -88,14 +100,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
         String name = GameConstants.getName();
-        String lives = GameConstants.getDifficulty();
-        if (lives.equals("Easy (3 Lives)")) {
-            lives = "Lives: " + 3;
-        } else if (lives.equals("Medium (2 Lives)")) {
-            lives = "Lives: " + 2;
-        } else {
-            lives = "Lives: " + 1;
-        }
+        String lives = "Lives: " + numLives;
         c.drawText(name, 30, 80, paint);
         c.drawText(lives, 800, 80, paint);
         String score = "Score: " + num;
@@ -198,6 +203,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         num += x;
     }
 
+    public static void setLives() {
+        if (numLives == 1) {
+            numLives -= 1;
+            //reset
+        } else {
+            numLives -= 1;
+        }
+    }
     public static void setTracker(int yCoor) {
         tracker = yCoor;
     }
@@ -234,6 +247,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (num > 0) {
                     GamePanel.setPoints(-((num / 2) + 1));
                 }
+                GamePanel.setLives();
                 Player.setX("reset");
                 Player.setY("reset");
                 // Remove the vehicle from the list
@@ -257,6 +271,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (num > 0) {
                     GamePanel.setPoints(-((num / 2) + 1));
                 }
+                GamePanel.setLives();
                 Player.setX("reset");
                 Player.setY("reset");
                 // Remove the vehicle from the list
@@ -280,9 +295,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (num > 0) {
                     GamePanel.setPoints(-((num / 2) + 1));
                 }
+                GamePanel.setLives();
                 Player.setX("reset");
                 Player.setY("reset");
-
                 // Remove the vehicle from the list
                 trucks.remove(truck);
                 break;
