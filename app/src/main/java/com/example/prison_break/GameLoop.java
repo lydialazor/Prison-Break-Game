@@ -24,6 +24,9 @@ public class GameLoop implements Runnable {
 
             gamePanel.update(delta);
             gamePanel.render();
+            gamePanel.checkCollisionWithVehicles();
+            gamePanel.checkCollisionWithTrucks();
+            gamePanel.checkCollisionWithTanks();
 
             lastDelta = nowDelta;
             fps++;

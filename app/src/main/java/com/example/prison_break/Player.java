@@ -2,6 +2,7 @@ package com.example.prison_break;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import com.example.prison_break.entities.GameCharacters;
 import com.example.prison_break.helpers.GameConstants;
@@ -15,6 +16,9 @@ public class Player {
     private static int changeX;
     private static int changeY;
 
+    public static final int START_X = 500;
+    public static final int START_Y = 1500;
+
     public Player() {
         setPlayer();
         x = 500 + changeX;
@@ -27,6 +31,8 @@ public class Player {
                 changeX -= 50;
             } else if (s == "right" && x < 1000) {
                 changeX += 50;
+            } else if (s == "reset") {
+                changeX = 0;
             }
     }
     public static void setY(String s) {
@@ -34,10 +40,12 @@ public class Player {
                 changeY -= 50;
             } else if (s == "down" && y <= 1500) {
                 changeY += 50;
+            } else if (s == "reset") {
+                changeY = 0;
             }
     }
 
-    public int getX() {
+    public static int getX() {
         return x;
     }
     public static int getY() {
@@ -57,6 +65,12 @@ public class Player {
     public static Bitmap getPlayerSprite() {
         return player;
     }
+
+    public void resetPosition() {
+        x = 500;
+        y = 1500;
+    }
+
 
 
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-    private Paint player1hair = new Paint();
     private SurfaceHolder holder;
     private int xDir = 1;
     private int yDir = 1;
@@ -35,12 +35,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int VEHICLE_HEIGHT = 52;
 
     private static int num = 0;
+
     private static int tracker = 1501;
+    private Player player;
+
 
 
     public GamePanel(Context context) {
         super(context);
-
 
         holder = getHolder();
         holder.addCallback(this);
@@ -77,18 +79,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void render() {
         Canvas c = holder.lockCanvas();
-        Player p = new Player();
         Paint paint = new Paint();
         paint.setColor(Color.BLUE);
         paint.setTextSize(80);
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
-        c.drawBitmap(p.getPlayerSprite(), p.getX(), p.getY(), null);
+        c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
+
+
         String name = GameConstants.getName();
         String lives = GameConstants.getDifficulty();
-        if (lives.equals("Easy (3 Lives")) {
+        if (lives.equals("Easy (3 Lives)")) {
             lives = "Lives: " + 3;
-        } else if (lives.equals("Medium (2 Lives")) {
+        } else if (lives.equals("Medium (2 Lives)")) {
             lives = "Lives: " + 2;
         } else {
             lives = "Lives: " + 1;
@@ -111,35 +114,59 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             c.drawBitmap(GameCharacters.TANK.getSprite(), pos.x, pos.y, null);
         }
 
-
         holder.unlockCanvasAndPost(c);
 
     }
 
 
     public void update(double delta) {
-
-         for(PointF pos: vehicles) {
+        Player p = new Player();
+        PointF playerPos = new PointF(p.getX(), p.getY());
+        for (PointF vehiclePos : vehicles) {
+            if (doVehiclesCollide(playerPos, vehiclePos)) {
+                p.resetPosition();
+                break;
+            }
+        }
+        for (PointF truckPos : trucks) {
+            if (doVehiclesCollide(playerPos, truckPos)) {
+                p.resetPosition();
+                break;
+            }
+        }
+        for (PointF tankPos : tanks) {
+            if (doVehiclesCollide(playerPos, tankPos)) {
+                p.resetPosition();
+                break;
+            }
+        }
+        for(PointF pos: vehicles) {
              pos.x += delta * 800;
 
-             if(pos.x >= 1920) {
+             if(pos.x >= getWidth()) {
                  pos.x = 0;
              }
+
+
          }
         for(PointF pos: trucks) {
             pos.x += delta * 500;
 
-            if(pos.x >= 1920) {
+            if(pos.x >= getWidth()) {
                 pos.x = 0;
             }
+
         }
         for(PointF pos: tanks) {
             pos.x += delta * 200;
 
-            if(pos.x >= 1920) {
+            if(pos.x >= getWidth()) {
                 pos.x = 0;
             }
+
+
         }
+
     }
 
     // checks whether the cop car vehicles collide or not
@@ -191,6 +218,76 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
 
+    }
+
+    public void checkCollisionWithVehicles() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+
+        for (PointF vehicle : vehicles) {
+            RectF vehicleRect = new RectF(vehicle.x, vehicle.y,
+                    vehicle.x + VEHICLE_WIDTH, vehicle.y + GameCharacters.VEHICLE.getSprite().getHeight());
+
+            if (playerRect.intersect(vehicleRect)) {
+                // Collision detected, decrement score
+                if (num > 0) {
+                    GamePanel.setPoints(-((num / 2) + 1));
+                }
+                Player.setX("reset");
+                Player.setY("reset");
+                // Remove the vehicle from the list
+                vehicles.remove(vehicle);
+                break;
+            }
+        }
+    }
+
+    public void checkCollisionWithTrucks() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+
+        for (PointF tank : tanks) {
+            RectF vehicleRect = new RectF(tank.x, tank.y,
+                    tank.x + VEHICLE_WIDTH, tank.y + GameCharacters.TANK.getSprite().getHeight());
+
+            if (playerRect.intersect(vehicleRect)) {
+                // Collision detected, decrement score
+                if (num > 0) {
+                    GamePanel.setPoints(-((num / 2) + 1));
+                }
+                Player.setX("reset");
+                Player.setY("reset");
+                // Remove the vehicle from the list
+                tanks.remove(tank);
+                break;
+            }
+        }
+    }
+
+    public void checkCollisionWithTanks() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+
+        for (PointF truck : trucks) {
+            RectF vehicleRect = new RectF(truck.x, truck.y,
+                    truck.x + VEHICLE_WIDTH, truck.y + GameCharacters.TRUCK.getSprite().getHeight());
+
+            if (playerRect.intersect(vehicleRect)) {
+                // Collision detected, decrement score
+                if (num > 0) {
+                    GamePanel.setPoints(-((num / 2) + 1));
+                }
+                Player.setX("reset");
+                Player.setY("reset");
+
+                // Remove the vehicle from the list
+                trucks.remove(truck);
+                break;
+            }
+        }
     }
 
 }
