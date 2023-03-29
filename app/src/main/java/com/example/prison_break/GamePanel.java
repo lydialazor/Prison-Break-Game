@@ -30,9 +30,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<PointF> trucks = new ArrayList<>();
 
     private ArrayList<PointF> tanks = new ArrayList<>();
+
+    private ArrayList<PointF> logs = new ArrayList<>();
     private PointF vehiclePos;
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
+
+
 
     private static int num = 0;
 
@@ -79,6 +83,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for(int i = 0; i < 50; i++) {
             tanks.add(new PointF(200, 300));
         }
+
+        for(int i = 0; i < 50; i++) {
+            logs.add(new PointF(100, 850));
+        }
+
+        for(int i = 0; i < 50; i++) {
+            logs.add(new PointF(500, 850));
+        }
+
         String lives = GameConstants.getDifficulty();
         if (lives.equals("Easy (3 Lives)")) {
             numLives = 3;
@@ -106,6 +119,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         String score = "Score: " + num;
         c.drawText(score,400, 80, paint);
 
+        if (Player.getY() <= 950 && Player.getY() > 750) {
+            if (!checkCollisionWithLogs()) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives();
+                Player.setX("reset");
+                Player.setY("reset");
+            }
+        }
+
 
         for(PointF pos: vehicles) {
             c.drawBitmap(GameCharacters.VEHICLE.getSprite(), pos.x, pos.y, null);
@@ -119,6 +141,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             c.drawBitmap(GameCharacters.TANK.getSprite(), pos.x, pos.y, null);
         }
 
+        for(PointF pos: logs) {
+            c.drawBitmap(GameCharacters.LOG.getSprite(), pos.x, pos.y, null);
+        }
         holder.unlockCanvasAndPost(c);
 
     }
@@ -145,6 +170,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 break;
             }
         }
+
         for(PointF pos: vehicles) {
              pos.x += delta * 800;
 
@@ -170,6 +196,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
 
 
+        }
+        for(PointF pos: logs) {
+            pos.x += delta * 200;
+
+            if (pos.x >= getWidth()) {
+                pos.x = 0;
+            }
         }
 
     }
@@ -199,6 +232,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return tanks;
     }
 
+    public ArrayList<PointF> getLogs() {
+        return logs;
+    }
     public static void setPoints(int x) {
         num += x;
     }
@@ -231,6 +267,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
 
+    }
+
+    public boolean checkCollisionWithLogs() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+        for (PointF log : logs) {
+            RectF vehicleRect = new RectF(log.x, log.y,
+                    log.x + VEHICLE_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
+
+            if (playerRect.intersect(vehicleRect)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void checkCollisionWithVehicles() {
@@ -304,5 +355,4 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
-
 }
