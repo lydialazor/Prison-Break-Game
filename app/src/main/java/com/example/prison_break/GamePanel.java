@@ -36,6 +36,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
 
+    private int TRUCK_WIDTH = 360;
+
+    private int TRUCK_HEIGHT = 270;
+
+    private int TANK_HEIGHT = 112;
+
+    private int TANK_WIDTH = 179;
+
+    private int LOG_WIDTH = 435;
+
 
 
     private static int num = 0;
@@ -85,11 +95,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(100, 850));
+            logs.add(new PointF(100, 800));
         }
 
         for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(500, 850));
+            logs.add(new PointF(500, 800));
         }
 
         String lives = GameConstants.getDifficulty();
@@ -240,11 +250,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public static void setLives() {
-        if (numLives == 1) {
+        if (numLives > 0) {
             numLives -= 1;
-            //reset
         } else {
-            numLives -= 1;
+            //game over screen functionality
         }
     }
     public static void setTracker(int yCoor) {
@@ -275,7 +284,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 Player.getY() + Player.getPlayerSprite().getHeight());
         for (PointF log : logs) {
             RectF vehicleRect = new RectF(log.x, log.y,
-                    log.x + VEHICLE_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
+                    log.x + LOG_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
 
             if (playerRect.intersect(vehicleRect)) {
                 return true;
@@ -308,14 +317,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void checkCollisionWithTrucks() {
+    public void checkCollisionWithTanks() {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
                 Player.getX() + Player.getPlayerSprite().getWidth(),
                 Player.getY() + Player.getPlayerSprite().getHeight());
 
         for (PointF tank : tanks) {
             RectF vehicleRect = new RectF(tank.x, tank.y,
-                    tank.x + VEHICLE_WIDTH, tank.y + GameCharacters.TANK.getSprite().getHeight());
+                    tank.x + TANK_WIDTH, tank.y + GameCharacters.TANK.getSprite().getHeight());
 
             if (playerRect.intersect(vehicleRect)) {
                 // Collision detected, decrement score
@@ -332,14 +341,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void checkCollisionWithTanks() {
+    public void checkCollisionWithTrucks() {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
                 Player.getX() + Player.getPlayerSprite().getWidth(),
                 Player.getY() + Player.getPlayerSprite().getHeight());
 
         for (PointF truck : trucks) {
             RectF vehicleRect = new RectF(truck.x, truck.y,
-                    truck.x + VEHICLE_WIDTH, truck.y + GameCharacters.TRUCK.getSprite().getHeight());
+                    truck.x + TRUCK_WIDTH, truck.y + GameCharacters.TRUCK.getSprite().getHeight());
 
             if (playerRect.intersect(vehicleRect)) {
                 // Collision detected, decrement score
