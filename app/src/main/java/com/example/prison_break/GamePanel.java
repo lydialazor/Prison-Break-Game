@@ -41,6 +41,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private static int tracker = 1501;
     private Player player;
     private static int numLives;
+    private static int reachedGoal;
 
     private Context gamecontext;
 
@@ -49,10 +50,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GamePanel(Context context) {
         super(context);
         gamecontext = context;
+        reachedGoal = 0;
         holder = getHolder();
         holder.addCallback(this);
         nextscreen  = new NextScreen();
-        gameLoop = new GameLoop(this);
+        gameLoop = new GameLoop(this, gamecontext);
 
         for(int i = 0; i < 50; i++) {
             vehicles.add(new PointF(500, 500));
@@ -114,7 +116,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         c.drawText(lives, 800, 80, paint);
         String score = "Score: " + num;
         c.drawText(score,400, 80, paint);
-
+        ScoreInfo.trackPoints(num);
+        GamePanel.setReachedGoal(gameLoop);
         if (Player.getY() <= 950 && Player.getY() > 750) {
             if (!checkCollisionWithLogs()) {
                 GamePanel.setPoints(-((num / 2) + 1));
@@ -168,7 +171,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         for(PointF pos: vehicles) {
-             pos.x += delta * 800;
+             pos.x += delta * 400;
 
              if(pos.x >= getWidth()) {
                  pos.x = 0;
@@ -177,7 +180,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
          }
         for(PointF pos: trucks) {
-            pos.x += delta * 500;
+            pos.x += delta * 250;
 
             if(pos.x >= getWidth()) {
                 pos.x = 0;
@@ -185,7 +188,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         }
         for(PointF pos: tanks) {
-            pos.x += delta * 200;
+            pos.x += delta * 100;
 
             if(pos.x >= getWidth()) {
                 pos.x = 0;
@@ -234,21 +237,24 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static void setPoints(int x) {
         num += x;
     }
-
+    public void resetPoints() {
+        num = 0;
+    }
     public static void setLives(GameLoop gameLoop) {
         if (numLives > 0) {
             numLives -= 1;
         } else {
             gameLoop.stopGameLoop();
-
-
         }
     }
     public static int getLives() {
         return numLives;
     }
-    public static void setTracker(int yCoor) {
+    public static void setTracker(int yCoor, GameLoop gameLoop) {
         tracker = yCoor;
+    }
+    public void resetTracker() {
+        tracker = 1501;
     }
 
     public static int getTracker() {
@@ -355,4 +361,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
+    public static void setReachedGoal(GameLoop gameLoop) {
+        if (Player.getY() < 150) {
+            gameLoop.stopGameLoop();
+        }
+    }
+
 }

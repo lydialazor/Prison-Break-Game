@@ -24,7 +24,6 @@
         android:id="@+id/finalscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X"
         android:textColor="@android:color/background_dark"
         android:textSize="70px"
         android:fontFamily="@font/gameplay"

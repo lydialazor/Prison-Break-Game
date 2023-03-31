@@ -3,11 +3,13 @@ package com.example.prison_break;
 public class ScoreInfo {
     protected static int num = 0;
     protected static int tracker = 1501;
+    protected static int scoreTracker = 0;
 
     public static void calculateScore() {
         if (ScoreInfo.getTracker() > Player.getY()) {
             if (Player.getY() < 1501 && Player.getY() > 1150) {
                 ScoreInfo.setPoints(10);
+                System.out.println("Scoreinfo");
             } else if (Player.getY() <= 1150 && Player.getY() > 950) {
                 ScoreInfo.setPoints(5);
             } else if (Player.getY() <= 950 && Player.getY() > 750) {
@@ -27,6 +29,12 @@ public class ScoreInfo {
 
     // static methods
     public static void setPoints(int x) {num += x;}
+    public static void trackPoints(int num1) {
+        scoreTracker = num1;
+    }
+    public static int getTrackPoints() {
+        return scoreTracker;
+    }
     public static int getPoints() {return num;}
     public static void setTracker(int yCoor) {
         tracker = yCoor;
@@ -34,6 +42,7 @@ public class ScoreInfo {
     public static int getTracker() {
         return tracker;
     }
+
 }
 
 
