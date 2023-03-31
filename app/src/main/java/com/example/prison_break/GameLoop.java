@@ -1,14 +1,19 @@
 package com.example.prison_break;
 
+import androidx.lifecycle.MutableLiveData;
+
 public class GameLoop implements Runnable {
     private Thread gameThread;
     private GamePanel gamePanel;
+    private boolean isRunning;
+
 
     public GameLoop(GamePanel gamePanel) {
         gameThread = new Thread(this);
         this.gamePanel = gamePanel;
-
+        isRunning = true;
     }
+
     @Override
     public void run() {
         long lastFPScheck = System.currentTimeMillis();
@@ -17,7 +22,7 @@ public class GameLoop implements Runnable {
         long lastDelta = System.nanoTime();
         long nanoSec = 1_000_000_000;
 
-        while (true) {
+        while (isRunning) {
             long nowDelta = System.nanoTime();
             double timeSinceLastDelta = nowDelta - lastDelta;
             double delta = timeSinceLastDelta / nanoSec;
@@ -38,8 +43,10 @@ public class GameLoop implements Runnable {
                 fps = 0;
                 lastFPScheck += 1000;
             }
-
         }
+        //GameScreen.getInstance().setRun();
+
+
     }
 
     public void startGameLoop() {
@@ -47,6 +54,24 @@ public class GameLoop implements Runnable {
     }
 
     public void stopGameLoop() {
-
+        isRunning = false;
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

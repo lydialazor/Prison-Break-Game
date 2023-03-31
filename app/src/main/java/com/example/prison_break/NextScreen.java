@@ -99,8 +99,6 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
                 intent.putExtra("Player", playerChoice);
 
                 if (!checkInvalidNames(name) && !checkInvalidDifficulty(difficulty)) {
-                    //showToast(name);
-                    //showToast(difficulty);
                     startActivity(intent);
                 } else if (!checkInvalidDifficulty(difficulty)) {
                     //Toast t = Toast.makeText(NextScreen.this, "Please choose your difficulty",Toast.LENGTH_SHORT);
