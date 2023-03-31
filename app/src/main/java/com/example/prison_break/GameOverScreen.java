@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,10 @@ public class GameOverScreen extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.gameoverscreen);
+
+        String score = Integer.toString(ScoreInfo.getTrackPoints());
+        TextView finalscore = findViewById(R.id.finalscore);
+        finalscore.setText(score);
 
         Button restart = findViewById(R.id.restartbutton);
         restart.setOnClickListener(new View.OnClickListener() {

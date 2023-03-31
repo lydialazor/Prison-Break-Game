@@ -1,5 +1,7 @@
 package com.example.prison_break;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -14,20 +16,19 @@ import androidx.lifecycle.Observer;
 import com.example.prison_break.helpers.GameConstants;
 
 public class GameScreen extends AppCompatActivity {
-    //protected static MutableLiveData<Boolean> running;
     private static Context gameContext;
     private static GameScreen instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gameContext = getApplicationContext();
         GamePanel gp = new GamePanel(this);
         gp.setFocusable(true);
         gp.setFocusableInTouchMode(true);
         gp.requestFocus();
-        GameLoop loop = new GameLoop(gp);
-        gameContext = this;
         instance = this;
+        GameLoop gl = new GameLoop(gp, gameContext);
 
         gp.setOnKeyListener( new View.OnKeyListener() {
             @Override
@@ -53,8 +54,9 @@ public class GameScreen extends AppCompatActivity {
                                 GamePanel.setPoints(5);
                             } else {
                                 GamePanel.setPoints(25);
+
                             }
-                            GamePanel.setTracker(Player.getY());
+                            GamePanel.setTracker(Player.getY(), gl);
                         }
                         break;
                     case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -69,25 +71,13 @@ public class GameScreen extends AppCompatActivity {
         }
 
         );
-        /**running = new MutableLiveData<>(true);
-        running.observe(this,new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                Intent intent = new Intent(getApplicationContext(), GameOverScreen.class);
-                intent.putExtra("finalscore", 100);
-                startActivity(intent);
-
-            }
-        }); **/
         setContentView(gp);
     }
 
     public static Context getContext() {
         return gameContext;
     }
-    /**public void setRun() {
-        running.setValue(false);
-    } **/
+
     public static GameScreen getInstance() {
         return instance;
     }
