@@ -1,14 +1,24 @@
 package com.example.prison_break;
 
+import android.content.Context;
+import android.content.Intent;
+
+import androidx.lifecycle.MutableLiveData;
+
 public class GameLoop implements Runnable {
     private Thread gameThread;
     private GamePanel gamePanel;
+    private boolean isRunning;
+    private Context appContext;
 
-    public GameLoop(GamePanel gamePanel) {
+
+    public GameLoop(GamePanel gamePanel, Context appContext) {
         gameThread = new Thread(this);
         this.gamePanel = gamePanel;
-
+        this.appContext = appContext;
+        isRunning = true;
     }
+
     @Override
     public void run() {
         long lastFPScheck = System.currentTimeMillis();
@@ -17,13 +27,19 @@ public class GameLoop implements Runnable {
         long lastDelta = System.nanoTime();
         long nanoSec = 1_000_000_000;
 
-        while (true) {
+        while (isRunning) {
+            System.out.println("Running");
+            System.out.println(ScoreInfo.getTrackPoints());
             long nowDelta = System.nanoTime();
             double timeSinceLastDelta = nowDelta - lastDelta;
             double delta = timeSinceLastDelta / nanoSec;
 
             gamePanel.update(delta);
             gamePanel.render();
+            gamePanel.checkCollisionWithVehicles();
+            gamePanel.checkCollisionWithTrucks();
+            gamePanel.checkCollisionWithTanks();
+            gamePanel.checkCollisionWithLogs();
 
             lastDelta = nowDelta;
             fps++;
@@ -36,6 +52,12 @@ public class GameLoop implements Runnable {
             }
 
         }
+        gamePanel.resetPoints();
+        gamePanel.resetTracker();
+        System.out.println("reset reached outside while");
+        Intent intent = new Intent(appContext, GameOverScreen.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
     }
 
     public void startGameLoop() {
@@ -43,6 +65,33 @@ public class GameLoop implements Runnable {
     }
 
     public void stopGameLoop() {
+        isRunning = false;
+        System.out.println("is running false");
 
     }
+    /** public void stops() {
+        isRunning = false;
+        gamePanel.resetPoints();
+        gamePanel.resetTracker();
+        Intent intent = new Intent(appContext, GameOverScreen.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
+    } **/
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

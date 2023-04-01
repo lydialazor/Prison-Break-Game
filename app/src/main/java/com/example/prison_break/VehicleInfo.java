@@ -2,6 +2,8 @@ package com.example.prison_break;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class VehicleInfo {
@@ -11,6 +13,8 @@ public class VehicleInfo {
     protected static ArrayList<PointF> trucks = new ArrayList<>();
 
     protected static ArrayList<PointF> tanks = new ArrayList<>();
+
+    protected static ArrayList<PointF> logs = new ArrayList<>();
     PointF vehiclePos;
     protected static int VEHICLE_WIDTH = 130;
     protected static int VEHICLE_HEIGHT = 52;
@@ -50,6 +54,13 @@ public class VehicleInfo {
                 pos.x = 0;
             }
         }
+        for(PointF pos: getLogs()) {
+            pos.x += delta * 200;
+
+            if(pos.x >= 1920) {
+                pos.x = 0;
+            }
+        }
     }
 
     public static void vehicleGenerate() {
@@ -63,7 +74,6 @@ public class VehicleInfo {
         for (int i = 0; i < 50; i++) {
             getVehicles().add(i, new PointF(300, 500));
         }
-
     }
 
 
@@ -87,6 +97,16 @@ public class VehicleInfo {
         }
     }
 
+    public static void logsGenerate() {
+        //logs
+        for (int i = 0; i < 50; i++) {
+            getLogs().add(new PointF(100, 850));
+        }
+        for (int i = 0; i < 50; i++) {
+            getLogs().add(new PointF(500, 850));
+        }
+    }
+
 
     // getter method for vehicles
     public static ArrayList<PointF> getVehicles() {
@@ -103,6 +123,8 @@ public class VehicleInfo {
         return tanks;
     }
 
+    //getter method for logs
+    public static ArrayList<PointF> getLogs() { return logs; }
 }
 
 

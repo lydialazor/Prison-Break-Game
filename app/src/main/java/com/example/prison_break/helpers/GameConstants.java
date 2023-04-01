@@ -7,6 +7,8 @@ public class GameConstants {
     private static String difficulty;
 
 
+
+
     public static String getPlayer() {
         return player;
     }
