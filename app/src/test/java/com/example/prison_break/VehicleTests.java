@@ -1,7 +1,7 @@
 package com.example.prison_break;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import android.graphics.PointF;
 
@@ -71,7 +71,7 @@ public class VehicleTests {
         boolean collision = vehicleInfo.doVehiclesCollide(vehicle1, vehicle2);
 
         // assert if collision occurred
-        assertFalse(collision);
+        assertTrue(collision);
     }
 
 

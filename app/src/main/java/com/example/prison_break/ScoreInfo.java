@@ -4,6 +4,7 @@ public class ScoreInfo {
     protected static int num = 0;
     protected static int tracker = 1501;
     protected static int scoreTracker = 0;
+    private static int numLives;
 
     public static void calculateScore() {
         if (ScoreInfo.getTracker() > Player.getY()) {
@@ -29,8 +30,21 @@ public class ScoreInfo {
 
     // static methods
     public static void setPoints(int x) {num += x;}
+    public void resetPoints() {
+        num = 0;
+    }
+    public static void setLives(GameLoop gameLoop) {
+        if (numLives > 0) {
+            numLives -= 1;
+        } else {
+            gameLoop.stopGameLoop();
+        }
+    }
     public static void trackPoints(int num1) {
         scoreTracker = num1;
+    }
+    public static int getLives() {
+        return numLives;
     }
     public static int getTrackPoints() {
         return scoreTracker;
