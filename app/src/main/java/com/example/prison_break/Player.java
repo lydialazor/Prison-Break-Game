@@ -1,8 +1,6 @@
 package com.example.prison_break;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 
 import com.example.prison_break.entities.GameCharacters;
 import com.example.prison_break.helpers.GameConstants;
