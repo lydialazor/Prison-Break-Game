@@ -35,7 +35,7 @@ public class ScoreInfo implements ScoreInterface, LivesInterface {
         return tracker;
     }
 
-    public static void calculateScore() {
+    public void calculateScore() {
         if (ScoreInfo.getTracker() > Player.getY()) {
             if (Player.getY() < 1501 && Player.getY() > 1150) {
                 ScoreInfo.setPoints(10);
