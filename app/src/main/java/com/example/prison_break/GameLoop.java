@@ -69,14 +69,6 @@ public class GameLoop implements Runnable {
         System.out.println("is running false");
 
     }
-    /** public void stops() {
-        isRunning = false;
-        gamePanel.resetPoints();
-        gamePanel.resetTracker();
-        Intent intent = new Intent(appContext, GameOverScreen.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.startActivity(intent);
-    } **/
 
 }
 

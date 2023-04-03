@@ -22,7 +22,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder holder;
     private int xDir = 1;
     private int yDir = 1;
-    private GameLoop gameLoop;
+    public GameLoop gameLoop;
     private NextScreen nextscreen;
     private Random rand = new Random();
     private ArrayList<PointF> vehicles = new ArrayList<>();
@@ -241,9 +241,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         num = 0;
     }
     public static void setLives(GameLoop gameLoop) {
-        if (numLives > 0) {
+        if (numLives > 1) {
             numLives -= 1;
-        } else {
+        } else if (numLives == 1) {
             gameLoop.stopGameLoop();
         }
     }
@@ -314,6 +314,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+
     public void checkCollisionWithTanks() {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
                 Player.getX() + Player.getPlayerSprite().getWidth(),
@@ -361,6 +362,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
+
     public static void setReachedGoal(GameLoop gameLoop) {
         if (Player.getY() < 150) {
             gameLoop.stopGameLoop();
