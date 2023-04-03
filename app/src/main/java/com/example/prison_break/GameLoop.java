@@ -28,8 +28,8 @@ public class GameLoop implements Runnable {
         long nanoSec = 1_000_000_000;
 
         while (isRunning) {
-            System.out.println("Running");
-            System.out.println(ScoreInfo.getTrackPoints());
+            //System.out.println("Running");
+            //System.out.println(ScoreInfo.getTrackPoints());
             long nowDelta = System.nanoTime();
             double timeSinceLastDelta = nowDelta - lastDelta;
             double delta = timeSinceLastDelta / nanoSec;
@@ -54,6 +54,8 @@ public class GameLoop implements Runnable {
         }
         gamePanel.resetPoints();
         gamePanel.resetTracker();
+        Player.setX("reset");
+        Player.setY("reset");
         System.out.println("reset reached outside while");
         Intent intent = new Intent(appContext, GameOverScreen.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -66,7 +68,7 @@ public class GameLoop implements Runnable {
 
     public void stopGameLoop() {
         isRunning = false;
-        System.out.println("is running false");
+        //System.out.println("is running false");
 
     }
 
