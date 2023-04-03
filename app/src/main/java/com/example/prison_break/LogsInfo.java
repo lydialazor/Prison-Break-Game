@@ -5,7 +5,7 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
-public class LogsInfo {
+public class LogsInfo extends ScoreInfo {
     private static ArrayList<PointF> logs = new ArrayList<>();
     protected static PlayerInfo player = new PlayerInfo();
     private static ScoreInfo scoreInfo = new ScoreInfo();
@@ -54,6 +54,13 @@ public class LogsInfo {
         }
     }
 
+    public void setLives(GameLoop gameLoop) {
+        if (numLives > 1) {
+            numLives -= 1;
+        } else if (numLives == 1) {
+            gameLoop.stopGameLoop();
+        }
+    }
     //getter method for logs
     public static ArrayList<PointF> getLogs() { return logs; }
     public static int getLogWidth() {return LOG_WIDTH;}
