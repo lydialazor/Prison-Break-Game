@@ -3,7 +3,8 @@ package com.example.prison_break;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
-import java.lang.reflect.Array;
+import com.example.prison_break.entities.GameCharacters;
+
 import java.util.ArrayList;
 
 public class VehicleInfo {
@@ -14,10 +15,13 @@ public class VehicleInfo {
 
     protected static ArrayList<PointF> tanks = new ArrayList<>();
 
-    protected static ArrayList<PointF> logs = new ArrayList<>();
+    protected static LogsInfo logs = new LogsInfo();
     PointF vehiclePos;
     protected static int VEHICLE_WIDTH = 130;
     protected static int VEHICLE_HEIGHT = 52;
+    private int TRUCK_WIDTH = 360;
+    private int TRUCK_HEIGHT = 270;
+    private static int num = 0;
 
 
     // checks whether the cop car vehicles collide or not
@@ -54,7 +58,7 @@ public class VehicleInfo {
                 pos.x = 0;
             }
         }
-        for(PointF pos: getLogs()) {
+        for(PointF pos: logs.getLogs()) {
             pos.x += delta * 200;
 
             if(pos.x >= 1920) {
@@ -62,48 +66,30 @@ public class VehicleInfo {
             }
         }
     }
+    
 
-    public static void vehicleGenerate() {
-        // vehicles
-        for (int i = 0; i < 50; i++) {
-            getVehicles().add(i, new PointF(500, 500));
-        }
-        for (int i = 0; i < 50; i++) {
-            getVehicles().add(i, new PointF(100, 500));
-        }
-        for (int i = 0; i < 50; i++) {
-            getVehicles().add(i, new PointF(300, 500));
-        }
-    }
+    // checks collisions with trucks and decrements score
+    public void checkCollisionWithTrucks() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
 
+        for (PointF truck : trucks) {
+            RectF vehicleRect = new RectF(truck.x, truck.y,
+                    truck.x + TRUCK_WIDTH, truck.y + GameCharacters.TRUCK.getSprite().getHeight());
 
-    public static void trucksGenerate() {
-        // trucks
-        for (int i = 0; i < 50; i++) {
-            getTrucks().add(i, new PointF(100, 1200));
-        }
-
-        for (int i = 0; i < 50; i++) {
-            getTrucks().add(i, new PointF(500, 1200));
-        }
-    }
-    public static void tanksGenerate() {
-        // tanks
-        for (int i = 0; i < 50; i++) {
-            getTanks().add(new PointF(500, 300));
-        }
-        for (int i = 0; i < 50; i++) {
-            getTanks().add(new PointF(200, 300));
-        }
-    }
-
-    public static void logsGenerate() {
-        //logs
-        for (int i = 0; i < 50; i++) {
-            getLogs().add(new PointF(100, 850));
-        }
-        for (int i = 0; i < 50; i++) {
-            getLogs().add(new PointF(500, 850));
+            if (playerRect.intersect(vehicleRect)) {
+                // Collision detected, decrement score
+                if (num > 0) {
+                    GamePanel.setPoints(-((num / 2) + 1));
+                }
+                //GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
+                // Remove the vehicle from the list
+                trucks.remove(truck);
+                break;
+            }
         }
     }
 
@@ -123,8 +109,6 @@ public class VehicleInfo {
         return tanks;
     }
 
-    //getter method for logs
-    public static ArrayList<PointF> getLogs() { return logs; }
 }
 
 

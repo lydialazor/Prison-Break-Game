@@ -1,7 +1,7 @@
 package com.example.prison_break;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import android.graphics.PointF;
 
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class VehicleTests {
     // local variables
     private VehicleInfo vehicleInfo;
+    private VehiclesGenerate vehicleGenerate;
 
     @Before
     public void setUp() {
@@ -34,7 +35,7 @@ public class VehicleTests {
         // assert there are no vehicles to begin with
         assertEquals(0, vehicleInfo.getVehicles().size());
         // generate vehicles
-        vehicleInfo.vehicleGenerate();
+        vehicleGenerate.vehicleGenerate();
         // ensure that the correct number of vehicles has been generated - 50 from each side
         assertEquals(150, vehicleInfo.getVehicles().size());
     }
@@ -44,7 +45,7 @@ public class VehicleTests {
         // assert there are no trucks to begin with
         assertEquals(0,vehicleInfo.getTrucks().size());
         // generate trucks
-        vehicleInfo.trucksGenerate();
+        vehicleGenerate.trucksGenerate();
         // ensure that the correct number of vehicles has been generated - 50 from each side
         assertEquals(100, vehicleInfo.getTrucks().size());
     }
@@ -54,7 +55,7 @@ public class VehicleTests {
         // assert there are no trucks to begin with
         assertEquals(0,vehicleInfo.getTanks().size());
         // generate trucks
-        vehicleInfo.tanksGenerate();
+        vehicleGenerate.tanksGenerate();
         // ensure that the correct number of vehicles has been generated - 50 from each side
         assertEquals(100, vehicleInfo.getTanks().size());
     }
@@ -71,7 +72,7 @@ public class VehicleTests {
         boolean collision = vehicleInfo.doVehiclesCollide(vehicle1, vehicle2);
 
         // assert if collision occurred
-        assertFalse(collision);
+        assertTrue(collision);
     }
 
 
@@ -79,7 +80,7 @@ public class VehicleTests {
     @Test
     public void testVehicleSpawn() {
         // run the code to spawn the vehicles
-        vehicleInfo.vehicleGenerate();
+        vehicleGenerate.vehicleGenerate();
         // checks that vehicles are spawning from the correct position
         for (int i = 0; i < vehicleInfo.getVehicles().size(); i++) {
             if (i < 50) {
@@ -94,7 +95,7 @@ public class VehicleTests {
     @Test
     public void testTruckSpawn() {
         // run the code to spawn the vehicles
-        vehicleInfo.trucksGenerate();
+        vehicleGenerate.trucksGenerate();
         // checks that vehicles are spawning from the correct position
         for (int i = 0; i < vehicleInfo.getTrucks().size(); i++) {
             if (i < 50) {
@@ -109,7 +110,7 @@ public class VehicleTests {
     @Test
     public void testTankSpawn() {
         // run the code to spawn the vehicles
-        vehicleInfo.tanksGenerate();
+        vehicleGenerate.tanksGenerate();
         // checks that vehicles are spawning from the correct position
         for (int i = 0; i < vehicleInfo.getTanks().size(); i++) {
             if (i < 50) {

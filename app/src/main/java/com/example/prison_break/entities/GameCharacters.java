@@ -15,9 +15,9 @@ public enum GameCharacters {
     BACKGROUND(R.drawable.testbackground),
     TRUCK(R.drawable.swattruck),
 
-    TANK(R.drawable.tank), LOG(R.drawable.log);
+    TANK(R.drawable.tank),
+    LOG(R.drawable.log);
 
-    //LOG(R.drawable.log);
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private Bitmap d1;
