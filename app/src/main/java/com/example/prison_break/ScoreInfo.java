@@ -1,18 +1,18 @@
 package com.example.prison_break;
 
-public class ScoreInfo {
+public class ScoreInfo implements ScoreInterface, LivesInterface {
     protected static int num = 0;
     protected static int tracker = 1501;
     protected static int scoreTracker = 0;
-    private static int numLives;
+    public static int numLives;
 
     // static methods
     public static void setPoints(int x) {num += x;}
     public void resetPoints() {
         num = 0;
     }
-    public static void setLives(GameLoop gameLoop) {
-        if (numLives > 0) {
+    public void setLives(GameLoop gameLoop) {
+        if (numLives > 1) {
             numLives -= 1;
         } else {
             gameLoop.message = "Better luck next time!";
@@ -36,7 +36,7 @@ public class ScoreInfo {
         return tracker;
     }
 
-    public static void calculateScore() {
+    public void calculateScore() {
         if (ScoreInfo.getTracker() > Player.getY()) {
             if (Player.getY() < 1501 && Player.getY() > 1150) {
                 ScoreInfo.setPoints(10);
