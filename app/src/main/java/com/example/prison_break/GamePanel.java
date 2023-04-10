@@ -108,8 +108,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
         c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
-
-
         String name = GameConstants.getName();
         String lives = "Lives: " + numLives;
         c.drawText(name, 30, 80, paint);
@@ -124,9 +122,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 GamePanel.setLives(gameLoop);
                 Player.setX("reset");
                 Player.setY("reset");
+            } else {
+                //player is on the log
+                //Player.setX("right");
             }
         }
-
 
         for(PointF pos: vehicles) {
             c.drawBitmap(GameCharacters.VEHICLE.getSprite(), pos.x, pos.y, null);
@@ -174,7 +174,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
              pos.x += delta * 400;
 
              if(pos.x >= getWidth()) {
-                 pos.x = 0;
+                 pos.x = -200;
              }
 
 
@@ -183,7 +183,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             pos.x += delta * 250;
 
             if(pos.x >= getWidth()) {
-                pos.x = 0;
+                pos.x = -300;
             }
 
         }
@@ -191,16 +191,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             pos.x += delta * 100;
 
             if(pos.x >= getWidth()) {
-                pos.x = 0;
+                pos.x = -100;
             }
 
 
         }
         for(PointF pos: logs) {
-            pos.x += delta * 200;
+            pos.x += delta * 50;
 
             if (pos.x >= getWidth()) {
-                pos.x = 0;
+                pos.x = -350;
             }
         }
 
@@ -244,6 +244,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if (numLives > 0) {
             numLives -= 1;
         } else {
+            gameLoop.message = "Better luck next time!";
             gameLoop.stopGameLoop();
         }
     }
@@ -279,6 +280,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
                 Player.getX() + Player.getPlayerSprite().getWidth(),
                 Player.getY() + Player.getPlayerSprite().getHeight());
+
         for (PointF log : logs) {
             RectF vehicleRect = new RectF(log.x, log.y,
                     log.x + LOG_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
@@ -364,6 +366,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static void setReachedGoal(GameLoop gameLoop) {
         if (Player.getY() < 150) {
             gameLoop.stopGameLoop();
+            gameLoop.message = "Congratulations!";
         }
     }
 

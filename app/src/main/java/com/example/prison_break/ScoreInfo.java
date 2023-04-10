@@ -15,6 +15,7 @@ public class ScoreInfo {
         if (numLives > 0) {
             numLives -= 1;
         } else {
+            gameLoop.message = "Better luck next time!";
             gameLoop.stopGameLoop();
         }
     }
