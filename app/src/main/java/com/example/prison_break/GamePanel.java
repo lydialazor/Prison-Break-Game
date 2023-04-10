@@ -122,7 +122,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 GamePanel.setLives(gameLoop);
                 Player.setX("reset");
                 Player.setY("reset");
+            } else if (Player.getX() > 1000 || Player.getX() < 0) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
             } else {
+                Player.setX("");
                 //player is on the log
                 //Player.setX("right");
             }
@@ -366,7 +372,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public static void setReachedGoal(GameLoop gameLoop) {
-        if (Player.getY() < 150) {
+        if (Player.getY() < 100) {
             gameLoop.stopGameLoop();
             gameLoop.message = "Congratulations!";
         }
