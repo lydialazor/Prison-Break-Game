@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameOverScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class GameOverScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -18,7 +19,10 @@ public class GameOverScreen extends AppCompatActivity implements AdapterView.OnI
         String score = Integer.toString(ScoreInfo.getTrackPoints());
         TextView finalscore = findViewById(R.id.finalscore);
         finalscore.setText(score);
-
+        TextView message = findViewById(R.id.message);
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("Message");
+        message.setText(m);
         Button restart = findViewById(R.id.restartbutton);
         restart.setOnClickListener(new View.OnClickListener() {
 
