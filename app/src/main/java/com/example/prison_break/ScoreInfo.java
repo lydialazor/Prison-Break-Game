@@ -14,7 +14,8 @@ public class ScoreInfo implements ScoreInterface, LivesInterface {
     public void setLives(GameLoop gameLoop) {
         if (numLives > 1) {
             numLives -= 1;
-        } else if (numLives == 1) {
+        } else {
+            gameLoop.message = "Better luck next time!";
             gameLoop.stopGameLoop();
         }
     }

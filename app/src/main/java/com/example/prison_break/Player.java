@@ -39,7 +39,15 @@ public class Player {
                 changeX += 50;
             } else if (s == "reset") {
                 changeX = 0;
+            } else if (s == "log2") {
+                changeX += 11;
+            }else {
+                changeX += 45;
             }
+    }
+
+    public static void setChangeX(float num) {
+        changeX += num;
     }
 
 
