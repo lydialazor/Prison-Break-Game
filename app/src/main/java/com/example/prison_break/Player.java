@@ -39,8 +39,10 @@ public class Player {
                 changeX += 50;
             } else if (s == "reset") {
                 changeX = 0;
-            } else {
-                changeX += 15;
+            } else if (s == "log2") {
+                changeX += 7;
+            }else {
+                changeX += 45;
             }
     }
 

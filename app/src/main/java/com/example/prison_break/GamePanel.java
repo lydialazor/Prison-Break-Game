@@ -29,6 +29,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<PointF> trucks = new ArrayList<>();
     private ArrayList<PointF> tanks = new ArrayList<>();
     private ArrayList<PointF> logs = new ArrayList<>();
+
+    private ArrayList<PointF> logs2 = new ArrayList<>();
+
     private PointF vehiclePos;
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
@@ -83,11 +86,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(100, 800));
+            logs2.add(new PointF(100, 700));
         }
 
         for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(500, 800));
+            logs.add(new PointF(500, 850));
         }
 
         String lives = GameConstants.getDifficulty();
@@ -116,7 +119,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         c.drawText(score,400, 80, paint);
         ScoreInfo.trackPoints(num);
         GamePanel.setReachedGoal(gameLoop);
-        if (Player.getY() <= 950 && Player.getY() > 750) {
+        if (Player.getY() <= 950 && Player.getY() > 800) {
             if (!checkCollisionWithLogs()) {
                 GamePanel.setPoints(-((num / 2) + 1));
                 GamePanel.setLives(gameLoop);
@@ -131,6 +134,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 Player.setX("");
                 //player is on the log
                 //Player.setX("right");
+            }
+        }
+        if (Player.getY() <= 800 && Player.getY() > 650) {
+            if (!checkCollisionWithLogs2()) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
+            } else if (Player.getX() > 1000 || Player.getX() < 0) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
+            } else {
+                Player.setX("log2");
             }
         }
 
@@ -148,6 +166,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         for(PointF pos: logs) {
             c.drawBitmap(GameCharacters.LOG.getSprite(), pos.x, pos.y, null);
+        }
+
+        for(PointF pos: logs2) {
+            c.drawBitmap(GameCharacters.LOG2.getSprite(), pos.x, pos.y, null);
         }
         holder.unlockCanvasAndPost(c);
 
@@ -203,7 +225,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         }
         for(PointF pos: logs) {
-            pos.x += delta * 50;
+            pos.x += delta * 400;
+
+            if (pos.x >= getWidth()) {
+                pos.x = -350;
+            }
+        }
+
+        for(PointF pos: logs2) {
+            pos.x += delta * 100;
 
             if (pos.x >= getWidth()) {
                 pos.x = -350;
@@ -290,13 +320,28 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (PointF log : logs) {
             RectF vehicleRect = new RectF(log.x, log.y,
                     log.x + LOG_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
+                if (playerRect.intersect(vehicleRect)) {
+                    return true;
+                }
+            }
+            return false;
+    }
 
+    public boolean checkCollisionWithLogs2() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+
+        for (PointF log : logs2) {
+            RectF vehicleRect = new RectF(log.x, log.y,
+                    log.x + LOG_WIDTH, log.y + GameCharacters.LOG2.getSprite().getHeight());
             if (playerRect.intersect(vehicleRect)) {
                 return true;
             }
         }
         return false;
     }
+
 
     public void checkCollisionWithVehicles() {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
