@@ -110,7 +110,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         paint.setTextSize(80);
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
-        c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
         String name = GameConstants.getName();
         String lives = "Lives: " + numLives;
         c.drawText(name, 30, 80, paint);
@@ -171,6 +170,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for(PointF pos: logs2) {
             c.drawBitmap(GameCharacters.LOG2.getSprite(), pos.x, pos.y, null);
         }
+        c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
+
         holder.unlockCanvasAndPost(c);
 
     }
