@@ -44,15 +44,15 @@ public class LogsInfo extends ScoreInfo {
 
 
     // log generation
-    public static void logsGenerate() {
-        //logs
-        for (int i = 0; i < 50; i++) {
-            getLogs().add(new PointF(100, 850));
-        }
-        for (int i = 0; i < 50; i++) {
-            getLogs().add(new PointF(500, 850));
-        }
-    }
+//    public static void logsGenerate() {
+//        //logs
+//        for (int i = 0; i < 50; i++) {
+//            getLogs().add(new PointF(100, 850));
+//        }
+//        for (int i = 0; i < 50; i++) {
+//            getLogs().add(new PointF(500, 850));
+//        }
+//    }
 
     public void setLives(GameLoop gameLoop) {
         if (numLives > 1) {

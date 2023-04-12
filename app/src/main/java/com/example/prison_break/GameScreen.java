@@ -44,9 +44,9 @@ public class GameScreen extends AppCompatActivity {
                                 GamePanel.setPoints(10);
                             } else if (Player.getY() <= 1150 && Player.getY() > 950) {
                                 GamePanel.setPoints(5);
-                            } else if (Player.getY() <= 950 && Player.getY() > 750) {
+                            } else if (Player.getY() <= 950 && Player.getY() > 650) {
                                 GamePanel.setPoints(15);
-                            } else if (Player.getY() <= 750 && Player.getY() > 550) {
+                            } else if (Player.getY() <= 650 && Player.getY() > 550) {
                                 GamePanel.setPoints(5);
                             } else if (Player.getY() <= 550 && Player.getY() > 250) {
                                 GamePanel.setPoints(10);
