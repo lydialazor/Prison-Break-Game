@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -47,6 +46,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private static int reachedGoal;
 
     private Context gamecontext;
+    private static LogsInfo logInfo;
+    private static Logs2Info log2Info;
+    private static VehiclesGenerate vehicleGen;
 
 
 
@@ -59,39 +61,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         nextscreen  = new NextScreen();
         gameLoop = new GameLoop(this, gamecontext);
 
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(500, 500));
-        }
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(100, 500));
-        }
+        // generate vehicles
+        vehicleGen.vehicleGenerate(vehicles);
+        // generate trucks
+        vehicleGen.trucksGenerate(trucks);
+        // generate tanks
+        vehicleGen.tanksGenerate(tanks);
+        // generate logs
+        logInfo.logsGenerate(logs);
+        log2Info.logsGenerate(logs2);
 
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(300, 500));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(100, 1200));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(500, 1200));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            tanks.add(new PointF(500, 300));
-        }
-        for(int i = 0; i < 50; i++) {
-            tanks.add(new PointF(200, 300));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            logs2.add(new PointF(100, 700));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(500, 850));
-        }
 
         String lives = GameConstants.getDifficulty();
         if (lives.equals("Easy (3 Lives)")) {

@@ -88,7 +88,7 @@ public class Sprint4Tests {
         }
     }
 
-    // tests whether the first location of logs collides with player and resets position
+    // tests whether the first location of water tiles resets position of player when collided
     @Test
     public void testLog1PlayerCollisionResetPosition() {
         // create player and log1
@@ -114,7 +114,7 @@ public class Sprint4Tests {
         }
     }
 
-    // tests whether the second location of logs collides with player and resets position
+    // tests whether the second location of water tiles resets player position when collided
     @Test
     public void testLog2PlayerCollisionResetPosition() {
         // create player
@@ -147,15 +147,15 @@ public class Sprint4Tests {
         // make sure 0 to begin with
         assertEquals(0, logsInfo.getLogs().size());
         // generate logs
-        logsInfo.logsGenerate();
+        logsInfo.logsGenerate(logsInfo.logs);
         // ensure that the correct number of vehicles has been generated - 50 from each side
-        assertEquals(100, logsInfo.getLogs().size());
+        assertEquals(50, logsInfo.getLogs().size());
     }
 
     // makes sure logs spawn in correct area
     @Test
     public void testLogSpawn() {
-        logsInfo.logsGenerate();
+        logsInfo.logsGenerate(logsInfo.logs);
         // checks that logs are spawning from the correct position
         for (int i = 0; i < logsInfo.getLogs().size(); i++) {
             if (i < 50) {

@@ -44,13 +44,10 @@ public class Logs2Info extends ScoreInfo {
 
 
     // log generation
-    public static void logsGenerate() {
+    public static void logsGenerate(ArrayList<PointF> logs2) {
         //logs
         for (int i = 50; i >= 0; i--) {
-            getLogs2().add(new PointF(100, 1000));
-        }
-        for (int i = 50; i >= 0; i--) {
-            getLogs2().add(new PointF(500, 1000));
+            logs2.add(new PointF(100, 700));
         }
     }
 
