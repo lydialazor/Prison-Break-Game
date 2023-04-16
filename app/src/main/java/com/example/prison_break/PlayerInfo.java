@@ -14,7 +14,6 @@ public class PlayerInfo {
     private static ScoreInfo scoreInfo = new ScoreInfo();
     private static int numLives;
 
-
     public void resetPosition() {
         x = 500;
         y = 1500;
@@ -26,6 +25,7 @@ public class PlayerInfo {
     public static int getPlayer2Width() {return PLAYER2_WIDTH;};
     public static int getPlayer3Height() {return PLAYER3_HEIGHT;}
     public static int getPlayer3Width() {return PLAYER3_WIDTH;}
+
     public static int getX() {return x;}
     public static int getY() {return y;}
     public static void setX(int change) {x=change;}

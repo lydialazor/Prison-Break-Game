@@ -33,7 +33,7 @@ public class GameLoop implements Runnable {
             double timeSinceLastDelta = nowDelta - lastDelta;
             double delta = timeSinceLastDelta / nanoSec;
 
-            gamePanel.update(delta);
+            gamePanel.updateMovingObjectPosition(delta);
             gamePanel.render();
             gamePanel.checkCollisionWithVehicles();
             gamePanel.checkCollisionWithTrucks();

@@ -24,19 +24,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GameLoop gameLoop;
     private NextScreen nextscreen;
     private Random rand = new Random();
-    private ArrayList<PointF> vehicles = new ArrayList<>();
-    private ArrayList<PointF> trucks = new ArrayList<>();
-    private ArrayList<PointF> tanks = new ArrayList<>();
-    private ArrayList<PointF> logs = new ArrayList<>();
-
+    private ArrayList<PointF> vehicles = new ArrayList<>(); private ArrayList<PointF> trucks = new ArrayList<>();private ArrayList<PointF> tanks = new ArrayList<>();private ArrayList<PointF> logs = new ArrayList<>();
     private ArrayList<PointF> logs2 = new ArrayList<>();
-
-    private PointF vehiclePos;
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
     private int TRUCK_WIDTH = 360;
-    private int TRUCK_HEIGHT = 270;
-    private int TANK_HEIGHT = 112;
     private int TANK_WIDTH = 179;
     private int LOG_WIDTH = 435;
     private static int num = 0;
@@ -44,7 +36,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Player player;
     private static int numLives;
     private static int reachedGoal;
-
     private Context gamecontext;
     private static LogsInfo logInfo;
     private static Logs2Info log2Info;
@@ -156,7 +147,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    public void update(double delta) {
+
+    public void updateMovingObjectPosition(double delta) {
         Player p = new Player();
         PointF playerPos = new PointF(p.getX(), p.getY());
         for (PointF vehiclePos : vehicles) {
