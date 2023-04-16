@@ -9,8 +9,9 @@ public class LogsInfo extends ScoreInfo {
     protected static ArrayList<PointF> logs = new ArrayList<>();
     protected static PlayerInfo player = new PlayerInfo();
     private static ScoreInfo scoreInfo = new ScoreInfo();
-    private static final int LOG_WIDTH = 435;
-    private static final int LOG_HEIGHT = 130;
+    protected static final int LOG_WIDTH = 435;
+    protected static final int LOG_HEIGHT = 130;
+    protected static int logSpeed = 350;
     private static int num = 0;
 
 
