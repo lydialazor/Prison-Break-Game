@@ -44,33 +44,9 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
         nameinput = (EditText) findViewById(R.id.nameinput);
         submitname = (Button) findViewById(R.id.submitname);
 
-        player1 = (ImageButton) findViewById(R.id.player1);
-        player1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(NextScreen.this, "player 1 selected",
-                        Toast.LENGTH_SHORT).show();
-                choice = player1;
-            }
-        });
-        player2 = (ImageButton) findViewById(R.id.player2);
-        player2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(NextScreen.this, "player 2 selected",
-                        Toast.LENGTH_SHORT).show();
-                choice = player2;
-            }
-        });
-        player3 = (ImageButton) findViewById(R.id.player3);
-        player3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(NextScreen.this, "player 3 selected",
-                        Toast.LENGTH_SHORT).show();
-                choice = player3;
-            }
-        });
+
+        playerSelect();
+
 
         Button start1;
         start1 = findViewById(R.id.start1);
@@ -138,6 +114,36 @@ public class NextScreen extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void playerSelect() {
+        player1 = (ImageButton) findViewById(R.id.player1);
+        player1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 1 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player1;
+            }
+        });
+        player2 = (ImageButton) findViewById(R.id.player2);
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 2 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player2;
+            }
+        });
+        player3 = (ImageButton) findViewById(R.id.player3);
+        player3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NextScreen.this, "player 3 selected",
+                        Toast.LENGTH_SHORT).show();
+                choice = player3;
+            }
+        });
     }
     public boolean checkInvalidNames(String name) {
         if (name == null) {
