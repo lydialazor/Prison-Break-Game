@@ -6,11 +6,12 @@ import android.graphics.RectF;
 import java.util.ArrayList;
 
 public class LogsInfo extends ScoreInfo {
-    private static ArrayList<PointF> logs = new ArrayList<>();
+    protected static ArrayList<PointF> logs = new ArrayList<>();
     protected static PlayerInfo player = new PlayerInfo();
     private static ScoreInfo scoreInfo = new ScoreInfo();
-    private static final int LOG_WIDTH = 435;
-    private static final int LOG_HEIGHT = 130;
+    protected static final int LOG_WIDTH = 435;
+    protected static final int LOG_HEIGHT = 130;
+    protected static int logSpeed = 350;
     private static int num = 0;
 
 
@@ -44,15 +45,12 @@ public class LogsInfo extends ScoreInfo {
 
 
     // log generation
-//    public static void logsGenerate() {
-//        //logs
-//        for (int i = 0; i < 50; i++) {
-//            getLogs().add(new PointF(100, 850));
-//        }
-//        for (int i = 0; i < 50; i++) {
-//            getLogs().add(new PointF(500, 850));
-//        }
-//    }
+    public static void logsGenerate(ArrayList<PointF> logs) {
+        //logs
+        for (int i = 0; i < 50; i++) {
+            logs.add(new PointF(500, 850));
+        }
+    }
 
     public void setLives(GameLoop gameLoop) {
         if (numLives > 1) {

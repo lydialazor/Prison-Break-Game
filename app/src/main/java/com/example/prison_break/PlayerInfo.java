@@ -10,6 +10,7 @@ public class PlayerInfo {
     private static final int PLAYER2_WIDTH = 112;
     private static final int PLAYER3_HEIGHT = 112;
     private static final int PLAYER3_WIDTH = 112;
+    private static int changeX;
     private static ScoreInfo scoreInfo = new ScoreInfo();
     private static int numLives;
 
@@ -29,4 +30,9 @@ public class PlayerInfo {
     public static int getY() {return y;}
     public static void setX(int change) {x=change;}
     public static void setY(int change) {y=change;}
+    // used for testing purposes - don't delete! (to separate UI from business logic)
+    public static void setNewX(int changeX) {x+=changeX;}
+    public static void setNewY(int changeY) {y-=changeY;}
+    // used for testing purposes - don't delete (to separate UI from business logic)
+    protected static String endMessage(int y) {if (y < 100) {return "Congratulations!";} return "";}
 }

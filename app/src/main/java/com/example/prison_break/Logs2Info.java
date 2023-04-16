@@ -9,8 +9,9 @@ public class Logs2Info extends ScoreInfo {
     private static ArrayList<PointF> logs2 = new ArrayList<>();
     protected static PlayerInfo player = new PlayerInfo();
     private static ScoreInfo scoreInfo = new ScoreInfo();
-    private static final int LOG_WIDTH = 300;
-    private static final int LOG_HEIGHT = 65;
+    protected static final int LOG_WIDTH = 300;
+    protected static final int LOG_HEIGHT = 65;
+    protected static int log2Speed = 350;
     private static int num = 0;
 
 
@@ -44,13 +45,10 @@ public class Logs2Info extends ScoreInfo {
 
 
     // log generation
-    public static void logsGenerate() {
+    public static void logsGenerate(ArrayList<PointF> logs2) {
         //logs
         for (int i = 50; i >= 0; i--) {
-            getLogs2().add(new PointF(100, 1000));
-        }
-        for (int i = 50; i >= 0; i--) {
-            getLogs2().add(new PointF(500, 1000));
+            logs2.add(new PointF(100, 700));
         }
     }
 
