@@ -35,6 +35,8 @@ public class ScoreInfo implements ScoreInterface, LivesInterface {
     public static int getTracker() {
         return tracker;
     }
+    // for testing purposes - don't delete
+    public static String endMessage() {if(numLives == 0) {return "Better luck next time!";} return"";}
 
     public void calculateScore() {
         if (ScoreInfo.getTracker() > Player.getY()) {
