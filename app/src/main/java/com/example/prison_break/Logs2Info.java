@@ -5,13 +5,13 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
-public class LogsInfo extends ScoreInfo {
-    protected static ArrayList<PointF> logs = new ArrayList<>();
+public class Logs2Info extends ScoreInfo {
+    private static ArrayList<PointF> logs2 = new ArrayList<>();
     protected static PlayerInfo player = new PlayerInfo();
     private static ScoreInfo scoreInfo = new ScoreInfo();
-    protected static final int LOG_WIDTH = 435;
-    protected static final int LOG_HEIGHT = 130;
-    protected static int logSpeed = 350;
+    protected static final int LOG_WIDTH = 300;
+    protected static final int LOG_HEIGHT = 65;
+    protected static int log2Speed = 350;
     private static int num = 0;
 
 
@@ -21,7 +21,7 @@ public class LogsInfo extends ScoreInfo {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
                 Player.getX() + Player.getPlayerSprite().getWidth(),
                 Player.getY() + Player.getPlayerSprite().getHeight());
-        for (PointF log : logs) {
+        for (PointF log : logs2) {
             RectF vehicleRect = new RectF(log.x, log.y,
                     log.x + LOG_WIDTH, log.y + LOG_HEIGHT);
 
@@ -45,10 +45,10 @@ public class LogsInfo extends ScoreInfo {
 
 
     // log generation
-    public static void logsGenerate(ArrayList<PointF> logs) {
+    public static void logsGenerate(ArrayList<PointF> logs2) {
         //logs
-        for (int i = 0; i < 50; i++) {
-            logs.add(new PointF(500, 850));
+        for (int i = 50; i >= 0; i--) {
+            logs2.add(new PointF(100, 700));
         }
     }
 
@@ -60,9 +60,7 @@ public class LogsInfo extends ScoreInfo {
         }
     }
     //getter method for logs
-    public static ArrayList<PointF> getLogs() { return logs; }
+    public static ArrayList<PointF> getLogs2() { return logs2; }
     public static int getLogWidth() {return LOG_WIDTH;}
     public static int getLogHeight() {return LOG_HEIGHT;}
-
-
 }

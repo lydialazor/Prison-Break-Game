@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,16 +24,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public GameLoop gameLoop;
     private NextScreen nextscreen;
     private Random rand = new Random();
-    private ArrayList<PointF> vehicles = new ArrayList<>();
-    private ArrayList<PointF> trucks = new ArrayList<>();
-    private ArrayList<PointF> tanks = new ArrayList<>();
-    private ArrayList<PointF> logs = new ArrayList<>();
-    private PointF vehiclePos;
+    private ArrayList<PointF> vehicles = new ArrayList<>(); private ArrayList<PointF> trucks = new ArrayList<>();private ArrayList<PointF> tanks = new ArrayList<>();private ArrayList<PointF> logs = new ArrayList<>();
+    private ArrayList<PointF> logs2 = new ArrayList<>();
     private int VEHICLE_WIDTH = 130;
     private int VEHICLE_HEIGHT = 52;
     private int TRUCK_WIDTH = 360;
-    private int TRUCK_HEIGHT = 270;
-    private int TANK_HEIGHT = 112;
     private int TANK_WIDTH = 179;
     private int LOG_WIDTH = 435;
     private static int num = 0;
@@ -42,8 +36,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Player player;
     private static int numLives;
     private static int reachedGoal;
-
     private Context gamecontext;
+    private static LogsInfo logInfo;
+    private static Logs2Info log2Info;
+    private static VehiclesGenerate vehicleGen;
 
 
 
@@ -56,39 +52,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         nextscreen  = new NextScreen();
         gameLoop = new GameLoop(this, gamecontext);
 
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(500, 500));
-        }
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(100, 500));
-        }
+        // generate vehicles
+        vehicleGen.vehicleGenerate(vehicles);
+        // generate trucks
+        vehicleGen.trucksGenerate(trucks);
+        // generate tanks
+        vehicleGen.tanksGenerate(tanks);
+        // generate logs
+        logInfo.logsGenerate(logs);
+        log2Info.logsGenerate(logs2);
 
-        for(int i = 0; i < 50; i++) {
-            vehicles.add(new PointF(300, 500));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(100, 1200));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            trucks.add(new PointF(500, 1200));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            tanks.add(new PointF(500, 300));
-        }
-        for(int i = 0; i < 50; i++) {
-            tanks.add(new PointF(200, 300));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(100, 800));
-        }
-
-        for(int i = 0; i < 50; i++) {
-            logs.add(new PointF(500, 800));
-        }
 
         String lives = GameConstants.getDifficulty();
         if (lives.equals("Easy (3 Lives)")) {
@@ -107,7 +80,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         paint.setTextSize(80);
         c.drawColor(Color.BLACK);
         c.drawBitmap(GameCharacters.BACKGROUND.getSprite(), 0, 0, null);
-        c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
         String name = GameConstants.getName();
         String lives = "Lives: " + numLives;
         c.drawText(name, 30, 80, paint);
@@ -116,15 +88,36 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         c.drawText(score,400, 80, paint);
         ScoreInfo.trackPoints(num);
         GamePanel.setReachedGoal(gameLoop);
-        if (Player.getY() <= 950 && Player.getY() > 750) {
+        if (Player.getY() <= 950 && Player.getY() > 800) {
             if (!checkCollisionWithLogs()) {
                 GamePanel.setPoints(-((num / 2) + 1));
                 GamePanel.setLives(gameLoop);
                 Player.setX("reset");
                 Player.setY("reset");
+            } else if (Player.getX() > 1000 || Player.getX() < 0) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
             } else {
+                Player.setX("");
                 //player is on the log
                 //Player.setX("right");
+            }
+        }
+        if (Player.getY() <= 800 && Player.getY() > 650) {
+            if (!checkCollisionWithLogs2()) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
+            } else if (Player.getX() > 1000 || Player.getX() < 0) {
+                GamePanel.setPoints(-((num / 2) + 1));
+                GamePanel.setLives(gameLoop);
+                Player.setX("reset");
+                Player.setY("reset");
+            } else {
+                Player.setX("log2");
             }
         }
 
@@ -143,12 +136,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for(PointF pos: logs) {
             c.drawBitmap(GameCharacters.LOG.getSprite(), pos.x, pos.y, null);
         }
+
+        for(PointF pos: logs2) {
+            c.drawBitmap(GameCharacters.LOG2.getSprite(), pos.x, pos.y, null);
+        }
+        c.drawBitmap(player.getPlayerSprite(), player.getX(), player.getY(), null);
+
         holder.unlockCanvasAndPost(c);
 
     }
 
 
-    public void update(double delta) {
+
+    public void updateMovingObjectPosition(double delta) {
         Player p = new Player();
         PointF playerPos = new PointF(p.getX(), p.getY());
         for (PointF vehiclePos : vehicles) {
@@ -197,7 +197,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         }
         for(PointF pos: logs) {
-            pos.x += delta * 50;
+            pos.x += delta * 400;
+
+            if (pos.x >= getWidth()) {
+                pos.x = -350;
+            }
+        }
+
+        for(PointF pos: logs2) {
+            pos.x += delta * 100;
 
             if (pos.x >= getWidth()) {
                 pos.x = -350;
@@ -284,13 +292,28 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         for (PointF log : logs) {
             RectF vehicleRect = new RectF(log.x, log.y,
                     log.x + LOG_WIDTH, log.y + GameCharacters.LOG.getSprite().getHeight());
+                if (playerRect.intersect(vehicleRect)) {
+                    return true;
+                }
+            }
+            return false;
+    }
 
+    public boolean checkCollisionWithLogs2() {
+        RectF playerRect = new RectF(Player.getX(), Player.getY(),
+                Player.getX() + Player.getPlayerSprite().getWidth(),
+                Player.getY() + Player.getPlayerSprite().getHeight());
+
+        for (PointF log : logs2) {
+            RectF vehicleRect = new RectF(log.x, log.y,
+                    log.x + LOG_WIDTH, log.y + GameCharacters.LOG2.getSprite().getHeight());
             if (playerRect.intersect(vehicleRect)) {
                 return true;
             }
         }
         return false;
     }
+
 
     public void checkCollisionWithVehicles() {
         RectF playerRect = new RectF(Player.getX(), Player.getY(),
@@ -366,7 +389,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public static void setReachedGoal(GameLoop gameLoop) {
-        if (Player.getY() < 150) {
+        if (Player.getY() < 100) {
             gameLoop.stopGameLoop();
             gameLoop.message = "Congratulations!";
         }

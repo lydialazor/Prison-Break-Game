@@ -30,9 +30,11 @@ public class GameScreen extends AppCompatActivity {
         instance = this;
         GameLoop gl = new GameLoop(gp, gameContext);
 
+
         gp.setOnKeyListener( new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                             Player.setY("down");
@@ -44,9 +46,9 @@ public class GameScreen extends AppCompatActivity {
                                 GamePanel.setPoints(10);
                             } else if (Player.getY() <= 1150 && Player.getY() > 950) {
                                 GamePanel.setPoints(5);
-                            } else if (Player.getY() <= 950 && Player.getY() > 750) {
+                            } else if (Player.getY() <= 950 && Player.getY() > 650) {
                                 GamePanel.setPoints(15);
-                            } else if (Player.getY() <= 750 && Player.getY() > 550) {
+                            } else if (Player.getY() <= 650 && Player.getY() > 550) {
                                 GamePanel.setPoints(5);
                             } else if (Player.getY() <= 550 && Player.getY() > 250) {
                                 GamePanel.setPoints(10);
@@ -54,10 +56,9 @@ public class GameScreen extends AppCompatActivity {
                                 GamePanel.setPoints(5);
                             } else {
                                 GamePanel.setPoints(25);
-
                             }
                             GamePanel.setTracker(Player.getY(), gl);
-                        }
+                            }
                         break;
                     case KeyEvent.KEYCODE_DPAD_LEFT:
                         Player.setX("left");
@@ -73,6 +74,7 @@ public class GameScreen extends AppCompatActivity {
         );
         setContentView(gp);
     }
+
 
     public static Context getContext() {
         return gameContext;
