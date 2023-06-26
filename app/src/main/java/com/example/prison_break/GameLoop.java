@@ -65,6 +65,7 @@ public class GameLoop implements Runnable {
     }
 
     public void startGameLoop() {
+
         gameThread.start();
     }
 
